@@ -14,10 +14,10 @@ export const BRAND = {
   initials: 'ST',
 
   // Primary domain tagline
-  tagline: 'UK Livestock Numbers Reconciliation',
+  tagline: 'Every head counted. Every book balanced.',
 
   // Subtitle displayed in navbar header
-  subtitle: 'Private Herd Numbers & Stock Balancing',
+  subtitle: 'No gaps. No guesswork.',
 
   // Primary file extension (including leading dot)
   file_extension: '.stocktaker',

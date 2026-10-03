@@ -27,11 +27,11 @@
 </script>
 
 {#if is_open}
-  <div class="fixed inset-0 z-50 flex items-center justify-center bg-stone-950/70 backdrop-blur-xs p-4 no-print animate-in fade-in duration-150">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-stone-200 flex flex-col animate-in zoom-in-95 duration-150">
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-cast-iron/70 backdrop-blur-xs p-4 no-print animate-in fade-in duration-150">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-trough flex flex-col animate-in zoom-in-95 duration-150">
       <div class="p-6">
         <div class="flex items-start gap-3.5">
-          <div class="p-2.5 rounded-xl {is_destructive ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-800'} shrink-0 mt-0.5">
+          <div class="p-2.5 rounded-xl {is_destructive ? 'bg-cull-red/10 text-cull-red' : 'bg-slate-100 text-cast-iron'} shrink-0 mt-0.5">
             {#if is_destructive}
               <AlertTriangle class="w-5 h-5" />
             {:else}
@@ -39,18 +39,18 @@
             {/if}
           </div>
           <div>
-            <h3 class="text-base font-bold text-stone-900 leading-snug">{title}</h3>
-            <p class="text-xs text-stone-600 mt-1.5 leading-relaxed whitespace-pre-line">{message}</p>
+            <h3 class="text-base font-bold text-cast-iron leading-snug font-display">{title}</h3>
+            <p class="text-xs text-galvanised mt-1.5 leading-relaxed whitespace-pre-line">{message}</p>
           </div>
         </div>
       </div>
 
-      <div class="px-6 py-3.5 bg-stone-50 border-t border-stone-200 flex items-center justify-end gap-2.5">
+      <div class="px-6 py-3.5 bg-chalk border-t border-trough flex items-center justify-end gap-2.5">
         {#if !is_alert_only}
           <button
             type="button"
             onclick={on_cancel}
-            class="px-3.5 py-1.5 rounded-lg bg-stone-200 hover:bg-stone-300 text-stone-700 text-xs font-semibold transition-colors cursor-pointer"
+            class="px-3.5 py-1.5 rounded-lg bg-trough/60 hover:bg-trough text-cast-iron text-xs font-semibold transition-colors cursor-pointer"
           >
             {cancel_text}
           </button>
@@ -58,7 +58,7 @@
         <button
           type="button"
           onclick={on_confirm}
-          class="px-4 py-1.5 rounded-lg text-white text-xs font-bold transition-colors cursor-pointer shadow-2xs flex items-center gap-1.5 {is_destructive ? 'bg-rose-700 hover:bg-rose-800' : 'bg-emerald-700 hover:bg-emerald-800'}"
+          class="px-4 py-1.5 rounded-lg text-white text-xs font-bold transition-colors cursor-pointer shadow-2xs flex items-center gap-1.5 {is_destructive ? 'bg-cull-red hover:bg-red-800' : 'bg-ear-tag hover:bg-ear-tag-hover'}"
         >
           {#if is_alert_only}
             <span>Understood</span>

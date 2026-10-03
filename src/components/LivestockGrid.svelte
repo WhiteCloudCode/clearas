@@ -24,27 +24,27 @@
   );
 </script>
 
-<div class="bg-white rounded-xl shadow-xs border border-stone-200 overflow-hidden mb-6 no-print">
-  <div class="px-6 py-4 border-b border-stone-200 bg-stone-50 flex items-center justify-between">
+<div class="bg-white rounded-xl shadow-xs border border-trough overflow-hidden mb-6 no-print">
+  <div class="px-6 py-4 border-b border-trough bg-chalk flex items-center justify-between">
     <div>
-      <h2 class="font-bold text-base text-stone-900">Livestock Movements & Balances</h2>
-      <p class="text-xs text-stone-500 mt-0.5">
-        Enter your animal numbers. Totals and differences calculate automatically.
+      <h2 class="font-bold text-base text-cast-iron font-display uppercase tracking-wide">Livestock Movements & Balances</h2>
+      <p class="text-xs text-galvanised mt-0.5">
+        Enter stock numbers across categories. Reconciliations balance in real time.
       </p>
     </div>
     <div class="flex items-center gap-2">
       <button
         onclick={() => on_add_category('trading_stock')}
-        class="px-2.5 py-1.5 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer"
+        class="px-2.5 py-1.5 bg-chalk hover:bg-trough text-cast-iron border border-trough rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
       >
-        <Plus class="w-3.5 h-3.5" />
+        <Plus class="w-3.5 h-3.5 text-ear-tag" />
         Add Trading Category
       </button>
       <button
         onclick={() => on_add_category('breeding_herd')}
-        class="px-2.5 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 rounded-lg text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer"
+        class="px-2.5 py-1.5 bg-chalk hover:bg-trough text-cast-iron border border-trough rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
       >
-        <Plus class="w-3.5 h-3.5" />
+        <Plus class="w-3.5 h-3.5 text-ear-tag" />
         Add Breeding Category
       </button>
     </div>
@@ -54,27 +54,27 @@
     <table class="w-full text-xs text-left border-collapse min-w-[980px]">
       <thead>
         <!-- Header Grouping -->
-        <tr class="bg-stone-100 border-b border-stone-300 text-stone-700 font-semibold uppercase text-[10px] tracking-wider">
-          <th class="py-2.5 px-3 w-48 border-r border-stone-200" rowspan="2">Livestock Category</th>
-          <th class="text-center py-1.5 px-2 bg-emerald-50/70 border-r border-stone-200 text-emerald-900" colspan="5">
+        <tr class="bg-chalk border-b border-trough text-galvanised font-semibold uppercase text-[10px] tracking-wider font-display">
+          <th class="py-2.5 px-3 w-48 border-r border-trough" rowspan="2">Livestock Category</th>
+          <th class="text-center py-1.5 px-2 bg-trough/50 border-r border-trough text-cast-iron" colspan="5">
             Numbers In (Additions)
           </th>
-          <th class="text-center py-1.5 px-2 bg-stone-100 border-r border-stone-200 text-stone-800" colspan="5">
+          <th class="text-center py-1.5 px-2 bg-trough/40 border-r border-trough text-cast-iron" colspan="5">
             Numbers Out (Disposals)
           </th>
-          <th class="text-center py-1.5 px-2 bg-blue-50/60 border-r border-stone-200 text-blue-900" colspan="3">
+          <th class="text-center py-1.5 px-2 bg-trough/60 border-r border-trough text-cast-iron" colspan="3">
             Closing Stock & Balance
           </th>
           <th class="w-10 text-center py-1.5 px-1" rowspan="2"></th>
         </tr>
         <!-- Sub-headers -->
-        <tr class="bg-stone-50 border-b border-stone-300 text-stone-600 font-medium text-[11px]">
+        <tr class="bg-chalk/80 border-b border-trough text-galvanised font-medium text-[11px] font-display uppercase tracking-wider">
           <!-- Inflows -->
           <th class="py-2 px-2 text-right w-16">Opening</th>
           <th class="py-2 px-2 text-right w-16">Births</th>
           <th class="py-2 px-2 text-right w-16">Bought</th>
           <th class="py-2 px-2 text-right w-16">Trans In</th>
-          <th class="py-2 px-2 text-right w-16 bg-emerald-100/50 font-bold text-emerald-900 border-r border-stone-200">
+          <th class="py-2 px-2 text-right w-16 bg-trough/50 font-bold text-cast-iron border-r border-trough">
             Total In
           </th>
           <!-- Outflows -->
@@ -82,27 +82,27 @@
           <th class="py-2 px-2 text-right w-16">Deaths</th>
           <th class="py-2 px-2 text-right w-16">Own Kill</th>
           <th class="py-2 px-2 text-right w-16">Trans Out</th>
-          <th class="py-2 px-2 text-right w-16 bg-stone-200/50 font-bold text-stone-900 border-r border-stone-200">
+          <th class="py-2 px-2 text-right w-16 bg-trough/50 font-bold text-cast-iron border-r border-trough">
             Total Out
           </th>
           <!-- Closing -->
-          <th class="py-2 px-2 text-right w-20 font-bold text-blue-950">Expected</th>
-          <th class="py-2 px-2 text-right w-20 font-bold text-stone-900">Count on Farm</th>
-          <th class="py-2 px-2 text-right w-20 font-bold border-r border-stone-200">Difference</th>
+          <th class="py-2 px-2 text-right w-20 font-bold text-cast-iron">Expected</th>
+          <th class="py-2 px-2 text-right w-20 font-bold text-cast-iron">Count on Farm</th>
+          <th class="py-2 px-2 text-right w-20 font-bold border-r border-trough">Difference</th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-stone-200">
+      <tbody class="divide-y divide-trough">
         <!-- 1. Breeding Herd Section -->
-        <tr class="bg-emerald-900/10 font-bold text-emerald-950 text-xs">
+        <tr class="bg-cast-iron-light/10 font-bold text-cast-iron text-xs font-display uppercase tracking-wider">
           <td colspan="15" class="py-2 px-3 flex items-center gap-1.5">
-            <Shield class="w-3.5 h-3.5 text-emerald-700" />
-            <span>Breeding Herd (Cows & Bulls - Herd Basis)</span>
+            <Shield class="w-3.5 h-3.5 text-galvanised" />
+            <span>Breeding Herd (Capital Assets &mdash; HMRC Herd Basis)</span>
           </td>
         </tr>
 
         {#if breeding_categories.length === 0}
           <tr>
-            <td colspan="15" class="py-3 px-4 text-center text-stone-400 italic">
+            <td colspan="15" class="py-3 px-4 text-center text-galvanised italic">
               No breeding stock recorded in this period.
             </td>
           </tr>
@@ -112,12 +112,12 @@
             {@const outflows = calculate_category_outflows(category)}
             {@const calculated_closing = calculate_category_expected_closing(category)}
             {@const discrepancy = calculate_category_discrepancy(category)}
-            <tr class="hover:bg-stone-50/80 transition-colors">
-              <td class="py-2 px-3 border-r border-stone-200 font-medium text-stone-800">
+            <tr class="hover:bg-chalk/80 transition-colors">
+              <td class="py-2 px-3 border-r border-trough font-medium text-cast-iron">
                 <input
                   type="text"
                   bind:value={category.name}
-                  class="w-full bg-transparent border-0 border-b border-transparent hover:border-stone-300 focus:border-emerald-500 focus:ring-0 p-0 text-xs font-medium"
+                  class="w-full bg-transparent border-0 border-b border-transparent hover:border-galvanised-light focus:border-ear-tag focus:ring-0 p-0 text-xs font-medium"
                 />
               </td>
               <!-- Inflows -->
@@ -126,7 +126,7 @@
                   type="number"
                   min="0"
                   bind:value={category.opening_stock}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -134,7 +134,7 @@
                   type="number"
                   min="0"
                   bind:value={category.births}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -142,7 +142,7 @@
                   type="number"
                   min="0"
                   bind:value={category.purchases}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -150,10 +150,10 @@
                   type="number"
                   min="0"
                   bind:value={category.transfers_in}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
-              <td class="py-2 px-2 text-right bg-emerald-50/60 font-mono font-bold text-emerald-950 border-r border-stone-200">
+              <td class="py-2 px-2 text-right bg-trough/30 font-mono font-bold text-cast-iron border-r border-trough tabular-nums">
                 {inflows}
               </td>
               <!-- Outflows -->
@@ -162,7 +162,7 @@
                   type="number"
                   min="0"
                   bind:value={category.sales}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -170,7 +170,7 @@
                   type="number"
                   min="0"
                   bind:value={category.deaths}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -178,7 +178,7 @@
                   type="number"
                   min="0"
                   bind:value={category.own_consumption}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -186,14 +186,14 @@
                   type="number"
                   min="0"
                   bind:value={category.transfers_out}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
-              <td class="py-2 px-2 text-right bg-stone-100 font-mono font-bold text-stone-900 border-r border-stone-200">
+              <td class="py-2 px-2 text-right bg-trough/30 font-mono font-bold text-cast-iron border-r border-trough tabular-nums">
                 {outflows}
               </td>
               <!-- Closing -->
-              <td class="py-2 px-2 text-right bg-blue-50/40 font-mono font-bold text-blue-950">
+              <td class="py-2 px-2 text-right bg-trough/50 font-mono font-bold text-cast-iron tabular-nums">
                 {calculated_closing}
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -201,16 +201,16 @@
                   type="number"
                   min="0"
                   bind:value={category.actual_closing_stock}
-                  class="w-full text-right py-1 px-1.5 font-bold border border-stone-300 rounded bg-amber-50/30 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 font-bold border border-trough rounded bg-chalk focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs text-cast-iron"
                 />
               </td>
-              <td class="py-2 px-2 text-right border-r border-stone-200 font-mono font-bold">
+              <td class="py-2 px-2 text-right border-r border-trough font-mono font-bold">
                 {#if discrepancy === 0}
-                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800">
+                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] bg-yard-green-light text-yard-green font-mono font-bold">
                     0
                   </span>
                 {:else}
-                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] {discrepancy > 0 ? 'bg-amber-100 text-amber-900' : 'bg-rose-100 text-rose-900'}">
+                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] bg-cull-red-light text-cull-red font-mono font-bold">
                     {discrepancy > 0 ? `+${discrepancy}` : discrepancy}
                   </span>
                 {/if}
@@ -218,7 +218,7 @@
               <td class="py-2 px-1 text-center">
                 <button
                   onclick={() => on_delete_category(category.id)}
-                  class="text-stone-300 hover:text-rose-600 transition-colors cursor-pointer"
+                  class="text-galvanised-light hover:text-cull-red transition-colors cursor-pointer"
                   title="Remove row"
                 >
                   <Trash2 class="w-3.5 h-3.5" />
@@ -229,25 +229,25 @@
         {/if}
 
         <!-- 2. Trading Stock Section -->
-        <tr class="bg-stone-200/50 font-bold text-stone-900 text-xs">
+        <tr class="bg-cast-iron-light/10 font-bold text-cast-iron text-xs font-display uppercase tracking-wider">
           <td colspan="15" class="py-2 px-3 flex items-center gap-1.5">
-            <TrendingUp class="w-3.5 h-3.5 text-stone-700" />
-            <span>Trading Cattle (Stores, Fat Cattle & Calves)</span>
+            <TrendingUp class="w-3.5 h-3.5 text-galvanised" />
+            <span>Trading Cattle (Revenue Stock &mdash; Stores, Fat Cattle & Calves)</span>
           </td>
         </tr>
 
         {#if trading_categories.length === 0}
           <tr>
-            <td colspan="15" class="py-6 px-4 text-center bg-stone-50/50">
+            <td colspan="15" class="py-6 px-4 text-center bg-chalk">
               <div class="max-w-md mx-auto space-y-2">
-                <p class="text-xs font-semibold text-stone-700">No trading cattle categories added yet.</p>
-                <p class="text-[11px] text-stone-500">
-                  Add cattle categories (e.g. Fat Bullocks, Store Cattle, Calves) to record your numbers.
+                <p class="text-xs font-semibold text-cast-iron font-display uppercase tracking-wide">No trading cattle recorded.</p>
+                <p class="text-[11px] text-galvanised">
+                  Enter revenue cattle categories (e.g. Stores, Fat Bullocks, Calves) to begin reconciliation.
                 </p>
                 <button
                   type="button"
                   onclick={() => on_add_category('trading_stock')}
-                  class="mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition-colors cursor-pointer shadow-2xs"
+                  class="mt-1 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-ear-tag hover:bg-ear-tag-hover text-white text-xs font-semibold transition-colors cursor-pointer shadow-2xs"
                 >
                   <Plus class="w-3.5 h-3.5" />
                   <span>Add First Trading Category</span>
@@ -261,12 +261,12 @@
             {@const outflows = calculate_category_outflows(category)}
             {@const calculated_closing = calculate_category_expected_closing(category)}
             {@const discrepancy = calculate_category_discrepancy(category)}
-            <tr class="hover:bg-stone-50/80 transition-colors">
-              <td class="py-2 px-3 border-r border-stone-200 font-medium text-stone-800">
+            <tr class="hover:bg-chalk/80 transition-colors">
+              <td class="py-2 px-3 border-r border-trough font-medium text-cast-iron">
                 <input
                   type="text"
                   bind:value={category.name}
-                  class="w-full bg-transparent border-0 border-b border-transparent hover:border-stone-300 focus:border-emerald-500 focus:ring-0 p-0 text-xs font-medium"
+                  class="w-full bg-transparent border-0 border-b border-transparent hover:border-galvanised-light focus:border-ear-tag focus:ring-0 p-0 text-xs font-medium"
                 />
               </td>
               <!-- Inflows -->
@@ -275,7 +275,7 @@
                   type="number"
                   min="0"
                   bind:value={category.opening_stock}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -283,7 +283,7 @@
                   type="number"
                   min="0"
                   bind:value={category.births}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -291,7 +291,7 @@
                   type="number"
                   min="0"
                   bind:value={category.purchases}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -299,10 +299,10 @@
                   type="number"
                   min="0"
                   bind:value={category.transfers_in}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
-              <td class="py-2 px-2 text-right bg-emerald-50/60 font-mono font-bold text-emerald-950 border-r border-stone-200">
+              <td class="py-2 px-2 text-right bg-trough/30 font-mono font-bold text-cast-iron border-r border-trough tabular-nums">
                 {inflows}
               </td>
               <!-- Outflows -->
@@ -311,7 +311,7 @@
                   type="number"
                   min="0"
                   bind:value={category.sales}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -319,7 +319,7 @@
                   type="number"
                   min="0"
                   bind:value={category.deaths}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -327,7 +327,7 @@
                   type="number"
                   min="0"
                   bind:value={category.own_consumption}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -335,14 +335,14 @@
                   type="number"
                   min="0"
                   bind:value={category.transfers_out}
-                  class="w-full text-right py-1 px-1.5 border border-stone-200 rounded focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
                 />
               </td>
-              <td class="py-2 px-2 text-right bg-stone-100 font-mono font-bold text-stone-900 border-r border-stone-200">
+              <td class="py-2 px-2 text-right bg-trough/30 font-mono font-bold text-cast-iron border-r border-trough tabular-nums">
                 {outflows}
               </td>
               <!-- Closing -->
-              <td class="py-2 px-2 text-right bg-blue-50/40 font-mono font-bold text-blue-950">
+              <td class="py-2 px-2 text-right bg-trough/50 font-mono font-bold text-cast-iron tabular-nums">
                 {calculated_closing}
               </td>
               <td class="py-1 px-1.5 text-right">
@@ -350,16 +350,16 @@
                   type="number"
                   min="0"
                   bind:value={category.actual_closing_stock}
-                  class="w-full text-right py-1 px-1.5 font-bold border border-stone-300 rounded bg-amber-50/30 focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+                  class="w-full text-right py-1 px-1.5 font-bold border border-trough rounded bg-chalk focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs text-cast-iron"
                 />
               </td>
-              <td class="py-2 px-2 text-right border-r border-stone-200 font-mono font-bold">
+              <td class="py-2 px-2 text-right border-r border-trough font-mono font-bold">
                 {#if discrepancy === 0}
-                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] bg-emerald-100 text-emerald-800">
+                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] bg-yard-green-light text-yard-green font-mono font-bold">
                     0
                   </span>
                 {:else}
-                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] {discrepancy > 0 ? 'bg-amber-100 text-amber-900' : 'bg-rose-100 text-rose-900'}">
+                  <span class="inline-block px-1.5 py-0.5 rounded text-[10px] bg-cull-red-light text-cull-red font-mono font-bold">
                     {discrepancy > 0 ? `+${discrepancy}` : discrepancy}
                   </span>
                 {/if}
@@ -367,7 +367,7 @@
               <td class="py-2 px-1 text-center">
                 <button
                   onclick={() => on_delete_category(category.id)}
-                  class="text-stone-300 hover:text-rose-600 transition-colors cursor-pointer"
+                  class="text-galvanised-light hover:text-cull-red transition-colors cursor-pointer"
                   title="Remove row"
                 >
                   <Trash2 class="w-3.5 h-3.5" />

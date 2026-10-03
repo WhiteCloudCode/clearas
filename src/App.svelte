@@ -38,6 +38,7 @@
   let filename = $state<string | null>(null);
   let is_dirty = $state(false);
   let active_view = $state<'onboarding' | 'editor' | 'report'>('editor');
+  let opened_from_workspace = $state(false);
   let is_farm_modal_open = $state(false);
   let is_period_modal_open = $state(false);
 
@@ -122,6 +123,7 @@
 
     // Default to onboarding view if setup is incomplete or no active farm records exist
     if (!is_onboarding_completed() || !cached || !cached.farm.farm_name) {
+      opened_from_workspace = false;
       active_view = 'onboarding';
     }
 
@@ -151,6 +153,7 @@
       file_handle = result.file_handle;
       filename = result.filename;
       is_dirty = false;
+      opened_from_workspace = false;
       active_view = 'editor';
     } catch (err: any) {
       if (err.name !== 'AbortError') {
@@ -221,6 +224,7 @@
         file_handle = null;
         filename = null;
         is_dirty = false;
+        opened_from_workspace = false;
         active_view = 'onboarding';
       },
     });
@@ -250,6 +254,7 @@
     }
 
     is_dirty = true;
+    opened_from_workspace = false;
     active_view = 'editor';
   }
 
@@ -424,7 +429,7 @@
 />
 
 <!-- Main App Layout -->
-<div class="min-h-screen flex flex-col bg-stone-100 text-stone-900">
+<div class="min-h-screen flex flex-col bg-chalk text-cast-iron">
   <HeaderNavbar
     farm={data.farm}
     {filename}
@@ -435,8 +440,14 @@
     on_save_file_as={save_file_as}
     on_new_farm={new_farm}
     on_open_farm_modal={() => (is_farm_modal_open = true)}
-    on_open_tour={() => (active_view = 'onboarding')}
-    on_toggle_view={(view) => (active_view = view)}
+    on_open_tour={() => {
+      opened_from_workspace = true;
+      active_view = 'onboarding';
+    }}
+    on_toggle_view={(view) => {
+      opened_from_workspace = false;
+      active_view = view;
+    }}
   />
 
   {#if active_view === 'editor'}
@@ -457,10 +468,13 @@
       <OnboardingView
         farm={data.farm}
         categories={active_period ? active_period.categories : []}
-        has_active_session={Boolean(data.farm.farm_name && data.periods.length > 0)}
+        has_active_session={opened_from_workspace}
         on_complete={handle_complete_setup}
         on_open_file={open_file}
-        on_cancel={() => (active_view = 'editor')}
+        on_cancel={() => {
+          opened_from_workspace = false;
+          active_view = 'editor';
+        }}
       />
     {:else if active_period}
       {#if active_view === 'editor'}

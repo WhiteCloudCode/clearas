@@ -1,8 +1,46 @@
 @import "tailwindcss";
 
+@theme {
+  --color-cast-iron: #1E242B;
+  --color-cast-iron-light: #283039;
+  --color-cast-iron-dark: #14181D;
+
+  --color-ear-tag: #E67E22;
+  --color-ear-tag-hover: #D35400;
+
+  --color-galvanised: #64748B;
+  --color-galvanised-light: #94A3B8;
+  --color-galvanised-dark: #475569;
+
+  --color-trough: #E2E8F0;
+  --color-trough-dark: #CBD5E1;
+
+  --color-chalk: #F8FAFC;
+
+  --color-yard-green: #15803D;
+  --color-yard-green-light: #DCFCE7;
+  --color-yard-green-border: #86EFAC;
+
+  --color-cull-red: #B91C1C;
+  --color-cull-red-light: #FEE2E2;
+  --color-cull-red-border: #FCA5A5;
+
+  --color-warning-ochre: #D97706;
+  --color-warning-ochre-light: #FEF3C7;
+  --color-warning-ochre-border: #FCD34D;
+
+  --font-display: 'Barlow Semi Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 @layer base {
   body {
-    @apply bg-stone-50 text-stone-900 antialiased min-h-screen font-sans;
+    background-color: #F8FAFC;
+    color: #1E242B;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
   }
 }
 
