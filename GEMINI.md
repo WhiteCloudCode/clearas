@@ -1,11 +1,11 @@
-# Clear As Mud: In-Browser Livestock Numbers Reconciliation
+# Stocktaker: In-Browser Livestock Numbers Reconciliation
 
 ## 1. Project Overview & Requirements
-Clear As Mud is a zero-backend, privacy-first web application designed for UK farmers and agricultural accountants. It replaces error-prone manual spreadsheets and paper documents with an intuitive, guided interface to record, balance, and report livestock reconciliations across multiple accounting periods (months, quarters, and tax years).
+Stocktaker is a zero-backend, privacy-first web application designed for UK farmers and agricultural accountants. It replaces error-prone manual spreadsheets and paper documents with an intuitive, guided interface to record, balance, and report livestock reconciliations across multiple accounting periods (months, quarters, and tax years).
 
 ### Core Constraints & Directives
 - **Zero Backend:** Runs entirely client-side in the browser. No server dependencies, external databases, or user accounts.
-- **Single Storage File:** All farm data across multiple years and periods is imported from and exported to a single portable file (`.cam`, `.clearas`, `.agribook`, `.farform`, or `.json`).
+- **Single Storage File:** All farm data across multiple years and periods is imported from and exported to a single portable file (`.stocktaker`, `.cam`, `.stk`, `.clearas`, `.agribook`, `.farform`, or `.json`).
 - **Offline First:** Fully functional without an internet connection once loaded; local storage/IndexedDB preserves work in progress automatically.
 - **Accurate Mathematical Reconciliation:** Real-time formula validation ensuring `Opening Stock + Inflows = Outflows + Closing Stock`.
 - **UK Farming & Accounting Conventions:** Compliant with UK tax year conventions (6 April to 5 April) and HMRC livestock valuation rules (e.g. Herd Basis capital vs Trading Stock revenue).
@@ -59,7 +59,7 @@ flowchart TD
     end
 
     subgraph StorageFile ["Farmer's Local Storage"]
-        MasterFile[("Master Data File\n(*.cam / *.clearas / *.agribook / *.farform / JSON)\nMulti-Year Records")]
+        MasterFile[("Master Data File\n(*.stocktaker / *.cam / *.stk / *.clearas / *.agribook / *.farform / JSON)\nMulti-Year Records")]
         ReportPDF["Accountant Report (PDF / Print)"]
     end
 
@@ -81,7 +81,7 @@ flowchart TD
   - Unaligned columns, missing date boundaries, and formatting degradation.
   - Lack of distinction between capital assets (Breeding Herd on the HMRC Herd Basis) and revenue stock (Trading Stock).
   - Risk of cloud data leaks or vendor lock-in with expensive subscription SaaS platforms.
-- Clear As Mud provides a zero-backend, client-side, privacy-first alternative.
+- Stocktaker provides a zero-backend, client-side, privacy-first alternative.
 
 ---
 
@@ -89,13 +89,13 @@ flowchart TD
 - **Framework:** Svelte 5 (Runes: `$state`, `$derived`, `$props`) with Vite and TypeScript.
 - **Styling:** Tailwind CSS v4 with custom print stylesheets for A4 accountant report generation.
 - **Iconography:** `@lucide/svelte`.
-- **Storage:** Compressed binary archives (`.cam`) utilising the Web Streams standard (`CompressionStream('gzip')` and `DecompressionStream('gzip')`). Transparent auto-detection handles both gzip binary and legacy plain JSON archives, with backward-compatibility for legacy `.clearas`, `.agribook`, and `.farform` files.
+- **Storage:** Compressed binary archives (`.stocktaker`) utilising the Web Streams standard (`CompressionStream('gzip')` and `DecompressionStream('gzip')`). Transparent auto-detection handles both gzip binary and legacy plain JSON archives, with backward-compatibility for legacy `.cam`, `.stk`, `.clearas`, `.agribook`, and `.farform` files.
 - **Persistence & File Access:** File System Access API (`showOpenFilePicker`, `showSaveFilePicker`, `createWritable`) with automatic `localStorage` auto-save and standard file input/blob download fallbacks.
 - **Period & Enterprise Management:** Customisable accounting periods via [`src/components/PeriodModal.svelte`](file:///Users/iainwhite/repos-personal/clearas/src/components/PeriodModal.svelte) with UK tax year quick presets (2023/24 through 2027/28), date range pickers, enterprise species selection, and accountant schedule notes.
 - **Duplicate Prevention Engine:** Strict validation in [`src/utils/storage.ts`](file:///Users/iainwhite/repos-personal/clearas/src/utils/storage.ts) (`validate_period_uniqueness`) ensuring periods cannot share identical names (case-insensitive, trimmed) or identical date ranges for the same species enterprise.
 - **First-Time Setup Wizard:** A dedicated 3-step full-page setup view via [`src/components/OnboardingView.svelte`](file:///Users/iainwhite/repos-personal/clearas/src/components/OnboardingView.svelte) that guides the user through (1) system overview, balancing rules, and direct file opening, (2) farm and CPH holding details, and (3) interactive category review for both Breeding Herd and Trading Stock with quick UK presets and 1-click removal.
 - **Default Categorisation & Zero Browser Pop-ups:** Pre-populates the 7 standard HMRC UK cattle categories by default (Breeding Herd: *Stock Bulls*, *Beef Cows*; Trading Stock: *Fat Bullocks*, *Fat Heifers*, *Store Cattle*, *Cull Cows*, *Calves < 1yr*). All native browser `alert()`, `confirm()`, and `prompt()` pop-ups have been eliminated in favour of inline table category creation and [`src/components/ConfirmationModal.svelte`](file:///Users/iainwhite/repos-personal/clearas/src/components/ConfirmationModal.svelte).
-- **Single-Source Brand & Identity Configuration:** All application naming, initials, primary file extensions (`.cam`), storage cache keys, document titles, and accountant report headers are centralised in [`src/config/brand.ts`](file:///Users/iainwhite/repos-personal/clearas/src/config/brand.ts). Any future rebranding takes immediate effect across the entire application by modifying this single file without touching UI components or storage algorithms.
+- **Single-Source Brand & Identity Configuration:** All application naming, initials, primary file extensions (`.stocktaker`), storage cache keys, document titles, and accountant report headers are centralised in [`src/config/brand.ts`](file:///Users/iainwhite/repos-personal/clearas/src/config/brand.ts). Any future rebranding takes immediate effect across the entire application by modifying this single file without touching UI components or storage algorithms.
 - **Farmer-Friendly Plain Language UI:** Clean copy designed for practical farm use without technical software jargon, keeping formal HMRC agricultural accounting terms (such as Herd Basis capital vs Trading Stock revenue) accurate while presenting clear, intuitive explanations for livestock numbers, balancing, and file saving.
 - **Automated Continuous Deployment:** GitHub Actions workflow ([`.github/workflows/deploy.yml`](file:///Users/iainwhite/repos-personal/clearas/.github/workflows/deploy.yml)) running automated tests, Svelte type checks, and static bundle compilation on every push to `main` for instant deployment to GitHub Pages with relative asset resolution (`base: './'`).
 - **Automated Verification:** Vitest test suite (`src/utils/calculations.test.ts`, `src/utils/storage.test.ts`, `src/utils/compression.test.ts`) validating reconciliation formulas, zero-discrepancy balancing, period rollover integrity, duplicate period prevention, and binary compression/decompression roundtrips.

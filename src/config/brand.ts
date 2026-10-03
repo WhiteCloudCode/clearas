@@ -8,10 +8,10 @@
 
 export const BRAND = {
   // Brand name displayed across navigation, dialogues, and reports
-  name: 'Clear As Mud',
+  name: 'Stocktaker',
 
   // 1-3 letter initials for the header logo badge
-  initials: 'CAM',
+  initials: 'ST',
 
   // Primary domain tagline
   tagline: 'UK Livestock Numbers Reconciliation',
@@ -20,17 +20,20 @@ export const BRAND = {
   subtitle: 'Private Herd Numbers & Stock Balancing',
 
   // Primary file extension (including leading dot)
-  file_extension: '.cam',
+  file_extension: '.stocktaker',
 
   // Local storage cache keys
-  storage_cache_key: 'cam_active_farm_v2',
-  onboarding_completed_key: 'cam_onboarding_completed',
+  storage_cache_key: 'stocktaker_active_farm_v1',
+  onboarding_completed_key: 'stocktaker_onboarding_completed',
 
   // Legacy backwards-compatibility identifiers
-  legacy_extensions: ['.clearasmud'] as const,
+  legacy_extensions: ['.stk', '.cam', '.clearas', '.clearasmud', '.agribook', '.farform'] as const,
   legacy_storage_cache_keys: [
+    'cam_active_farm_v2',
+    'cam_active_farm_v1',
   ] as const,
   legacy_onboarding_keys: [
+    'cam_onboarding_completed',
   ] as const,
 } as const;
 

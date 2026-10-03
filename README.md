@@ -1,15 +1,15 @@
-# Clear As Mud: In-Browser Livestock Numbers Reconciliation
+# Stocktaker: In-Browser Livestock Numbers Reconciliation
 
 A privacy-focused, zero-backend web tool for UK livestock farmers to effortlessly reconcile herd numbers, track stock movements across periods, and produce pristine, accountant-ready reconciliation schedules.
 
 ## Background
 Livestock reconciliation is an essential annual/periodic requirement for agricultural accountants, HMRC tax returns (under herd basis and trading stock rules), and farm management. Traditional methods often rely on fragile spreadsheets or manual paper records, resulting in calculation errors, balancing discrepancies, and messy reports.
 
-Clear As Mud eliminates these issues by running entirely in the browser without any server infrastructure. All records are retained locally and can be imported from or exported to a single portable master file.
+Stocktaker eliminates these issues by running entirely in the browser without any server infrastructure. All records are retained locally and can be imported from or exported to a single portable master file.
 
 ## Key Features
 - **100% In-Browser & Private:** Zero backend server; all farm data remains strictly on the farmer's machine.
-- **Single Master Storage File:** Import and export all historical periods (months, quarters, tax years) into a compact, compressed binary `.cam` archive (utilising the browser-native `CompressionStream` API). Not human-readable in text editors to prevent accidental tampering, with transparent auto-detection for older `.clearas`, `.agribook`, `.farform` and plain `.json` files.
+- **Single Master Storage File:** Import and export all historical periods (months, quarters, tax years) into a compact, compressed binary `.stocktaker` archive (utilising the browser-native `CompressionStream` API). Not human-readable in text editors to prevent accidental tampering, with transparent auto-detection for older `.cam`, `.stk`, `.clearas`, `.agribook`, `.farform` and plain `.json` files.
 - **Automated Mathematical Balancing:** Real-time formula validation ensuring `Opening Stock + Inflows = Outflows + Closing Stock`.
 - **UK Tax & Agricultural Alignment:** Formatted around UK tax years (6 April to 5 April) and HMRC standard livestock categorisations (Breeding Herd capital vs Trading Stock revenue).
 - **Casualties & Deaths Breakdown:** Granular age breakdown (< 1 year, 1–2 years, > 2 years) with automated cross-validation against movement tables.
@@ -49,6 +49,6 @@ The application automatically deploys to GitHub Pages via the workflow defined i
 ### One-Time Repository Setup:
 1. In your GitHub repository, navigate to **Settings** &rarr; **Pages**.
 2. Under **Build and deployment** &rarr; **Source**, select **GitHub Actions**.
-3. Any push to `main` will automatically build, test, and publish to `https://whitecloudcode.github.io/clearas/`.
+3. Any push to `main` will automatically build, test, and publish to `https://whitecloudcode.github.io/stocktaker/`.
 
 For comprehensive architectural design, requirements, and domain logic, see [GEMINI.md](file:///Users/iainwhite/repos-personal/clearas/GEMINI.md).
