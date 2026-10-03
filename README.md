@@ -42,4 +42,13 @@ npm run check
 npm run build
 ```
 
+## Deployment (GitHub Pages)
+
+The application automatically deploys to GitHub Pages via the workflow defined in [`.github/workflows/deploy.yml`](file:///Users/iainwhite/repos-personal/clearas/.github/workflows/deploy.yml).
+
+### One-Time Repository Setup:
+1. In your GitHub repository, navigate to **Settings** &rarr; **Pages**.
+2. Under **Build and deployment** &rarr; **Source**, select **GitHub Actions**.
+3. Any push to `main` will automatically build, test, and publish to `https://whitecloudcode.github.io/clearas/`.
+
 For comprehensive architectural design, requirements, and domain logic, see [GEMINI.md](file:///Users/iainwhite/repos-personal/clearas/GEMINI.md).
