@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-stone-50 text-stone-900 antialiased min-h-screen font-sans;
+  }
+}
+
+/* Custom Print Styles for Clean A4 Accountant Reports */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 15mm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 10.5pt;
+    line-height: 1.35;
+  }
+
+  /* Hide screen-only interactive elements */
+  .no-print,
+  nav,
+  header button,
+  .period-controls,
+  .file-status-bar,
+  .action-buttons {
+    display: none !important;
+  }
+
+  /* Expand print report to full width */
+  .print-only-container {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Prevent page breaks inside tables and summary cards */
+  table, tr, td, th, .keep-together {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
