@@ -121,7 +121,7 @@
       <div class="px-6 py-4 bg-chalk border-t border-trough flex justify-end gap-2">
         <button
           onclick={on_close}
-          class="px-4 py-2 bg-ear-tag hover:bg-ear-tag-hover text-white text-xs font-bold rounded-lg transition-colors shadow-2xs cursor-pointer"
+          class="px-4 py-2 bg-ear-tag hover:bg-ear-tag-hover text-peat text-xs font-bold rounded-lg transition-colors shadow-2xs cursor-pointer border border-buttercup-border"
         >
           Save Details
         </button>

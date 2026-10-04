@@ -25,6 +25,7 @@ export const BRAND = {
   // Local storage cache keys
   storage_cache_key: 'stocktaker_active_farm_v1',
   onboarding_completed_key: 'stocktaker_onboarding_completed',
+  text_zoom_key: 'stocktaker_text_zoom_scale',
 
   // Legacy backwards-compatibility identifiers
   legacy_extensions: ['.stk', '.cam', '.clearas', '.clearasmud', '.agribook', '.farform'] as const,

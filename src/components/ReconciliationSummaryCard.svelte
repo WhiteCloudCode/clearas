@@ -14,6 +14,7 @@
     Info,
     TrendingDown,
     TrendingUp,
+    Shield,
   } from '@lucide/svelte';
 
   interface Props {
@@ -145,6 +146,56 @@
       </div>
     </div>
   </div>
+
+  <!-- HMRC Herd Basis Capital Position Banner (BIM55500) -->
+  {#if summary.herd_basis.status !== 'none'}
+    <div class="px-5 py-3 border-t border-trough bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2.5">
+        <Shield class="w-4 h-4 text-galvanised shrink-0" />
+        <div>
+          <span class="font-bold text-cast-iron font-display uppercase tracking-wider">HMRC Herd Basis (Capital Stock):</span>
+          <span class="text-galvanised ml-1 font-mono">
+            {summary.herd_basis.opening_head} Opening &rarr; {summary.herd_basis.closing_head} Closing
+            ({summary.herd_basis.net_change_head >= 0 ? `+${summary.herd_basis.net_change_head}` : summary.herd_basis.net_change_head} head,
+            {summary.herd_basis.percentage_change >= 0 ? `+${summary.herd_basis.percentage_change}` : summary.herd_basis.percentage_change}%)
+          </span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span
+          class="px-2 py-0.5 rounded text-[11px] font-bold font-mono tracking-wide
+          {summary.herd_basis.status === 'substantial_reduction'
+            ? 'bg-warning-ochre/20 text-warning-ochre border border-warning-ochre/30'
+            : summary.herd_basis.status === 'minor_reduction'
+            ? 'bg-slate-200 text-cast-iron border border-trough'
+            : summary.herd_basis.status === 'expansion'
+            ? 'bg-ear-tag/15 text-ear-tag border border-ear-tag/30'
+            : 'bg-yard-green-light/40 text-yard-green border border-yard-green/30'}"
+          title={summary.herd_basis.tax_treatment}
+        >
+          {summary.herd_basis.status_badge} [{summary.herd_basis.tax_rule}]
+        </span>
+      </div>
+    </div>
+  {/if}
+
+  <!-- Balance Sheet Valuation Summary (if entered) -->
+  {#if summary.valuations.has_valuations}
+    <div class="px-5 py-2.5 border-t border-trough bg-chalk/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-galvanised">
+        <span class="font-sans font-semibold text-cast-iron uppercase text-[11px] tracking-wider">Stock Valuation (£):</span>
+        <span>Opening: £{summary.valuations.total_opening_value.toLocaleString()}</span>
+        <span>&bull;</span>
+        <span>Closing: £{summary.valuations.total_closing_value.toLocaleString()}</span>
+      </div>
+      <div class="text-cast-iron font-semibold">
+        P&L Trading Movement:
+        <span class="{summary.valuations.trading_movement >= 0 ? 'text-yard-green' : 'text-cull-red'}">
+          {summary.valuations.trading_movement >= 0 ? '+' : ''}£{summary.valuations.trading_movement.toLocaleString()}
+        </span>
+      </div>
+    </div>
+  {/if}
 
   <!-- Casualty / Deaths Check Alert (if deaths breakdown does not match category sum) -->
   {#if !deaths_check.is_matching}

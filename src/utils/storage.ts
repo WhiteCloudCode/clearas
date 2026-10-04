@@ -15,19 +15,45 @@ import {
 
 const FORMAT_VERSION = 1;
 
-export const DEFAULT_BREEDING_CATEGORY_PRESETS = [
-  'Stock Bulls',
-  'Beef Cows / In-calf Heifers',
-  'Breeding Heifers',
-] as const;
+export interface CattleCategoryPreset {
+  id: string;
+  name: string;
+  classification: 'breeding_herd' | 'trading_stock';
+  included_by_default: boolean;
+}
 
-export const DEFAULT_TRADING_CATEGORY_PRESETS = [
-  'Fat Bullocks / Steers',
-  'Fat Heifers',
-  'Store Cattle',
-  'Cull Cows',
-  'Calves (under 1 year)',
-] as const;
+/**
+ * Single catalogue of UK cattle categories used for both the default farm template
+ * and the onboarding quick-add options.
+ *
+ * Herd basis (BIM55220): a female animal only joins the production herd once mature,
+ * i.e. after producing her first calf. Unserved and in-calf heifers therefore sit in
+ * Trading Stock and are moved into the Breeding Herd via Transfers Out / Transfers In
+ * when they calve.
+ */
+export const CATTLE_CATEGORY_PRESETS: readonly CattleCategoryPreset[] = [
+  { id: 'stock-bulls', name: 'Stock Bulls', classification: 'breeding_herd', included_by_default: true },
+  { id: 'beef-cows', name: 'Beef Cows (calved)', classification: 'breeding_herd', included_by_default: true },
+  { id: 'dairy-cows', name: 'Dairy Cows (calved)', classification: 'breeding_herd', included_by_default: false },
+
+  { id: 'replacement-heifers', name: 'Replacement Heifers (unserved / in-calf)', classification: 'trading_stock', included_by_default: true },
+  { id: 'fat-bullocks', name: 'Fat Bullocks / Steers', classification: 'trading_stock', included_by_default: true },
+  { id: 'fat-heifers', name: 'Fat Heifers', classification: 'trading_stock', included_by_default: true },
+  { id: 'store-cattle', name: 'Store Cattle', classification: 'trading_stock', included_by_default: true },
+  { id: 'cull-cows', name: 'Cull Cows', classification: 'trading_stock', included_by_default: true },
+  { id: 'calves-under-1-yr', name: 'Calves (under 1 year)', classification: 'trading_stock', included_by_default: true },
+  { id: 'youngstock-1-2-yrs', name: 'Youngstock (1–2 years)', classification: 'trading_stock', included_by_default: false },
+  { id: 'young-bulls', name: 'Young Bulls / Bull Beef', classification: 'trading_stock', included_by_default: false },
+  { id: 'cull-bulls', name: 'Cull Bulls', classification: 'trading_stock', included_by_default: false },
+];
+
+export const DEFAULT_BREEDING_CATEGORY_PRESETS = CATTLE_CATEGORY_PRESETS.filter(
+  (preset) => preset.classification === 'breeding_herd'
+).map((preset) => preset.name);
+
+export const DEFAULT_TRADING_CATEGORY_PRESETS = CATTLE_CATEGORY_PRESETS.filter(
+  (preset) => preset.classification === 'trading_stock'
+).map((preset) => preset.name);
 
 /**
  * Creates a blank category with zeroed initial balances
@@ -49,6 +75,8 @@ export function create_blank_category(
     own_consumption: 0,
     transfers_out: 0,
     actual_closing_stock: 0,
+    opening_value_per_head: 0,
+    closing_value_per_head: 0,
   };
 }
 
@@ -121,112 +149,15 @@ export function validate_period_uniqueness(
 }
 
 /**
- * Creates default initial template categories for UK cattle farms.
- * Pre-populates standard HMRC Herd Basis capital categories (Stock Bulls, Cows)
- * and commercial Trading Stock categories (Fat Bullocks, Fat Heifers, Store Cattle, Cull Cows, Calves).
- * Farmers can easily review, delete, rename, or add bespoke categories.
+ * Creates the default template categories for UK cattle farms from the presets
+ * flagged `included_by_default`. Stable ids keep default categories traceable
+ * across period rollovers. Farmers can delete, rename, or add bespoke categories.
  */
 export function create_default_cattle_categories(): LivestockCategory[] {
-  return [
-    {
-      id: 'stock-bulls',
-      name: 'Stock Bulls',
-      classification: 'breeding_herd',
-      opening_stock: 0,
-      births: 0,
-      purchases: 0,
-      transfers_in: 0,
-      sales: 0,
-      deaths: 0,
-      own_consumption: 0,
-      transfers_out: 0,
-      actual_closing_stock: 0,
-    },
-    {
-      id: 'beef-cows',
-      name: 'Beef Cows / In-calf Heifers',
-      classification: 'breeding_herd',
-      opening_stock: 0,
-      births: 0,
-      purchases: 0,
-      transfers_in: 0,
-      sales: 0,
-      deaths: 0,
-      own_consumption: 0,
-      transfers_out: 0,
-      actual_closing_stock: 0,
-    },
-    {
-      id: 'fat-bullocks',
-      name: 'Fat Bullocks / Steers',
-      classification: 'trading_stock',
-      opening_stock: 0,
-      births: 0,
-      purchases: 0,
-      transfers_in: 0,
-      sales: 0,
-      deaths: 0,
-      own_consumption: 0,
-      transfers_out: 0,
-      actual_closing_stock: 0,
-    },
-    {
-      id: 'fat-heifers',
-      name: 'Fat Heifers',
-      classification: 'trading_stock',
-      opening_stock: 0,
-      births: 0,
-      purchases: 0,
-      transfers_in: 0,
-      sales: 0,
-      deaths: 0,
-      own_consumption: 0,
-      transfers_out: 0,
-      actual_closing_stock: 0,
-    },
-    {
-      id: 'store-cattle',
-      name: 'Store Cattle',
-      classification: 'trading_stock',
-      opening_stock: 0,
-      births: 0,
-      purchases: 0,
-      transfers_in: 0,
-      sales: 0,
-      deaths: 0,
-      own_consumption: 0,
-      transfers_out: 0,
-      actual_closing_stock: 0,
-    },
-    {
-      id: 'cull-cows',
-      name: 'Cull Cows',
-      classification: 'trading_stock',
-      opening_stock: 0,
-      births: 0,
-      purchases: 0,
-      transfers_in: 0,
-      sales: 0,
-      deaths: 0,
-      own_consumption: 0,
-      transfers_out: 0,
-      actual_closing_stock: 0,
-    },
-    {
-      id: 'calves-under-1-yr',
-      name: 'Calves (under 1 year)',
-      classification: 'trading_stock',
-      opening_stock: 0,
-      births: 0,
-      purchases: 0,
-      transfers_in: 0,
-      sales: 0,
-      deaths: 0,
-      own_consumption: 0,
-      transfers_out: 0,
-      actual_closing_stock: 0,
-    },
-  ];
+  return CATTLE_CATEGORY_PRESETS.filter((preset) => preset.included_by_default).map((preset) => ({
+    ...create_blank_category(preset.name, preset.classification),
+    id: preset.id,
+  }));
 }
 
 /**
@@ -244,6 +175,7 @@ export function create_empty_farm_data(name: string = ''): MasterFarmFile {
       under_one_year: 0,
       one_to_two_years: 0,
       over_two_years: 0,
+      tb_reactors: 0,
       notes: '',
     },
     period_notes: '',
@@ -287,6 +219,8 @@ export function rollover_period(
     own_consumption: 0,
     transfers_out: 0,
     actual_closing_stock: Number(cat.actual_closing_stock || 0),
+    opening_value_per_head: Number(cat.closing_value_per_head || 0),
+    closing_value_per_head: Number(cat.closing_value_per_head || 0),
   }));
 
   return {
@@ -300,6 +234,7 @@ export function rollover_period(
       under_one_year: 0,
       one_to_two_years: 0,
       over_two_years: 0,
+      tb_reactors: 0,
     },
     period_notes: `Rolled over from ${previous_period.name}. Opening stock matches previous actual closing stock.`,
   };

@@ -31,6 +31,8 @@
   import OnboardingView from './components/OnboardingView.svelte';
   import PeriodModal from './components/PeriodModal.svelte';
   import ConfirmationModal from './components/ConfirmationModal.svelte';
+  import GuidedEntryWizard from './components/GuidedEntryWizard.svelte';
+  import { ListFilter, TableProperties } from '@lucide/svelte';
 
   // Core application state
   let data = $state<MasterFarmFile>(create_empty_farm_data());
@@ -38,6 +40,7 @@
   let filename = $state<string | null>(null);
   let is_dirty = $state(false);
   let active_view = $state<'onboarding' | 'editor' | 'report'>('editor');
+  let editor_mode = $state<'guided' | 'spreadsheet'>('guided');
   let opened_from_workspace = $state(false);
   let is_farm_modal_open = $state(false);
   let is_period_modal_open = $state(false);
@@ -478,18 +481,56 @@
       />
     {:else if active_period}
       {#if active_view === 'editor'}
+        <!-- Mode Switcher Pill (Guided Flow vs Spreadsheet View) -->
+        <div class="mb-4 flex items-center justify-between no-print">
+          <div class="inline-flex p-1 bg-white border border-trough rounded-xl shadow-2xs">
+            <button
+              type="button"
+              onclick={() => (editor_mode = 'guided')}
+              class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer {editor_mode === 'guided'
+                ? 'bg-cast-iron text-white shadow-2xs'
+                : 'text-galvanised hover:text-cast-iron hover:bg-chalk'}"
+            >
+              <ListFilter class="w-3.5 h-3.5 {editor_mode === 'guided' ? 'text-ear-tag' : ''}" />
+              <span>Guided Entry (Step-by-Step)</span>
+            </button>
+            <button
+              type="button"
+              onclick={() => (editor_mode = 'spreadsheet')}
+              class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer {editor_mode === 'spreadsheet'
+                ? 'bg-cast-iron text-white shadow-2xs'
+                : 'text-galvanised hover:text-cast-iron hover:bg-chalk'}"
+            >
+              <TableProperties class="w-3.5 h-3.5 {editor_mode === 'spreadsheet' ? 'text-ear-tag' : ''}" />
+              <span>Spreadsheet View (All Numbers)</span>
+            </button>
+          </div>
+
+          <span class="text-xs text-galvanised hidden sm:inline">
+            {editor_mode === 'guided' ? 'Simplified question-by-question entry' : 'Complete multi-column schedule'}
+          </span>
+        </div>
+
         <!-- Reconciliation Monitor Card -->
         <ReconciliationSummaryCard period={active_period} />
 
-        <!-- Movement Grid -->
-        <LivestockGrid
-          bind:period={active_period}
-          on_add_category={add_category}
-          on_delete_category={delete_category}
-        />
+        {#if editor_mode === 'guided'}
+          <!-- Guided Step-by-Step Entry Wizard -->
+          <GuidedEntryWizard
+            bind:period={active_period}
+            on_switch_to_spreadsheet={() => (editor_mode = 'spreadsheet')}
+          />
+        {:else}
+          <!-- Movement Grid -->
+          <LivestockGrid
+            bind:period={active_period}
+            on_add_category={add_category}
+            on_delete_category={delete_category}
+          />
 
-        <!-- Casualties Breakdown -->
-        <CasualtiesSection bind:period={active_period} />
+          <!-- Casualties Breakdown -->
+          <CasualtiesSection bind:period={active_period} />
+        {/if}
       {:else if active_view === 'report'}
         <!-- Professional Print & PDF Schedule -->
         <AccountantReport

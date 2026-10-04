@@ -20,6 +20,8 @@ export interface LivestockCategory {
   own_consumption: number;
   transfers_out: number;
   actual_closing_stock: number;
+  opening_value_per_head?: number; // Optional £ per head at start of period (HS232)
+  closing_value_per_head?: number; // Optional £ per head at end of period (HS232)
   notes?: string;
 }
 
@@ -27,6 +29,7 @@ export interface DeathsBreakdown {
   under_one_year: number; // calves (< 1 year)
   one_to_two_years: number; // yearlings (1–2 years)
   over_two_years: number; // mature stock (> 2 years)
+  tb_reactors?: number;   // Statutory Bovine TB / compulsory slaughter removals (APHA / BIM55560)
   notes?: string;
 }
 
@@ -59,6 +62,39 @@ export interface MasterFarmFile {
   active_period_id: string;
 }
 
+export type HerdReductionStatus =
+  | 'none'
+  | 'expansion'
+  | 'stable'
+  | 'minor_reduction'
+  | 'substantial_reduction';
+
+export interface HerdBasisSummary {
+  opening_head: number;
+  closing_head: number;
+  net_change_head: number;
+  percentage_change: number; // Percentage change (negative for reduction)
+  status: HerdReductionStatus;
+  status_badge: string;
+  tax_rule: string;
+  tax_treatment: string;
+}
+
+export interface ValuationSummary {
+  has_valuations: boolean;
+  breeding_opening_value: number;
+  breeding_closing_value: number;
+  breeding_movement: number;
+
+  trading_opening_value: number;
+  trading_closing_value: number;
+  trading_movement: number;
+
+  total_opening_value: number;
+  total_closing_value: number;
+  total_movement: number;
+}
+
 export interface PeriodReconciliationSummary {
   total_opening_stock: number;
   total_births: number;
@@ -76,4 +112,7 @@ export interface PeriodReconciliationSummary {
   actual_closing_stock: number;     // physical count recorded on farm
   discrepancy: number;              // actual_closing_stock - reconciled_closing_stock
   is_balanced: boolean;             // discrepancy === 0
+
+  herd_basis: HerdBasisSummary;
+  valuations: ValuationSummary;
 }

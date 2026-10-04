@@ -1,46 +1,82 @@
 @import "tailwindcss";
+@import "@fontsource/bitter/500.css";
+@import "@fontsource/bitter/600.css";
+@import "@fontsource/bitter/700.css";
+@import "@fontsource/atkinson-hyperlegible-next/400.css";
+@import "@fontsource/atkinson-hyperlegible-next/500.css";
+@import "@fontsource/atkinson-hyperlegible-next/600.css";
+@import "@fontsource/atkinson-hyperlegible-next/700.css";
 
 @theme {
-  --color-cast-iron: #1E242B;
-  --color-cast-iron-light: #283039;
-  --color-cast-iron-dark: #14181D;
+  /* Field & Hedgerow Rural Theme */
+  --color-cast-iron: #2E4A2B;           /* Hedgerow Green */
+  --color-cast-iron-light: #3E613A;     /* Hedgerow Leaf */
+  --color-cast-iron-dark: #1E331C;      /* Deep Forest */
 
-  --color-ear-tag: #E67E22;
-  --color-ear-tag-hover: #D35400;
+  --color-ear-tag: #F2C94C;             /* Buttercup Yellow */
+  --color-ear-tag-hover: #E5BB3C;       /* Warm Gorse Hover */
 
-  --color-galvanised: #64748B;
-  --color-galvanised-light: #94A3B8;
-  --color-galvanised-dark: #475569;
+  --color-galvanised: #6B4F32;          /* Oak Brown */
+  --color-galvanised-light: #A89D80;    /* Weathered Timber */
+  --color-galvanised-dark: #4A3622;     /* Bark Brown */
 
-  --color-trough: #E2E8F0;
-  --color-trough-dark: #CBD5E1;
+  --color-trough: #DDD6C1;              /* Dry Stone Wall */
+  --color-trough-dark: #C8BEA3;         /* Cobblestone */
 
-  --color-chalk: #F8FAFC;
+  --color-chalk: #F7F4EA;               /* Parchment Canvas */
 
-  --color-yard-green: #15803D;
-  --color-yard-green-light: #DCFCE7;
-  --color-yard-green-border: #86EFAC;
+  --color-yard-green: #1F7A3A;          /* Clover Green */
+  --color-yard-green-light: #DFEEDD;    /* Clover Mist */
+  --color-yard-green-border: #9DCFA9;   /* Clover Border */
 
-  --color-cull-red: #B91C1C;
-  --color-cull-red-light: #FEE2E2;
-  --color-cull-red-border: #FCA5A5;
+  --color-cull-red: #A8322A;            /* Rust Red */
+  --color-cull-red-light: #F5DDD9;      /* Rust Blush */
+  --color-cull-red-border: #E89E96;     /* Rust Border */
 
-  --color-warning-ochre: #D97706;
-  --color-warning-ochre-light: #FEF3C7;
-  --color-warning-ochre-border: #FCD34D;
+  --color-warning-ochre: #7A4E0E;       /* Harvest Amber */
+  --color-warning-ochre-light: #F8E8BF; /* Harvest Straw */
+  --color-warning-ochre-border: #E5C370;/* Straw Border */
 
-  --font-display: 'Barlow Semi Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* Dedicated Rural Palette Aliases */
+  --color-hedgerow: #2E4A2B;
+  --color-hedgerow-leaf: #3E613A;
+  --color-hedgerow-dark: #1E331C;
+  --color-buttercup: #F2C94C;
+  --color-buttercup-hover: #E5BB3C;
+  --color-buttercup-border: #D4A82A;
+  --color-oak: #6B4F32;
+  --color-dry-stone: #DDD6C1;
+  --color-parchment: #F7F4EA;
+  --color-warm-milk: #FFFDF6;
+  --color-peat: #2B2A22;
+
+  --font-display: 'Bitter', Georgia, serif;
+  --font-sans: 'Atkinson Hyperlegible Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+:root {
+  /* Default initial zoom level: 110% (scaled up for older farmers) */
+  --app-font-scale: 1.1;
 }
 
 @layer base {
+  html {
+    font-size: calc(16px * var(--app-font-scale));
+  }
+
   body {
-    background-color: #F8FAFC;
-    color: #1E242B;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F7F4EA;
+    color: #2B2A22;
+    font-family: 'Atkinson Hyperlegible Next', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.0625rem; /* Equivalent to 17px at 1.0 scale, scales up with --app-font-scale */
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Bitter', Georgia, serif;
   }
 }
 

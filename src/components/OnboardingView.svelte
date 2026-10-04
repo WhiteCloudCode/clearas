@@ -194,7 +194,7 @@
           onclick={() => (current_step = 0)}
           class="flex items-center gap-2 text-left cursor-pointer transition-colors font-display {current_step === 0 ? 'text-white font-bold' : 'text-galvanised-light hover:text-white'}"
         >
-          <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] {current_step === 0 ? 'bg-ear-tag text-white font-bold' : 'bg-cast-iron-light text-galvanised-light'}">
+          <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] {current_step === 0 ? 'bg-ear-tag text-peat font-bold' : 'bg-cast-iron-light text-galvanised-light'}">
             1
           </span>
           <span class="hidden sm:inline">How It Works</span>
@@ -205,7 +205,7 @@
           onclick={() => (current_step = 1)}
           class="flex items-center gap-2 text-left cursor-pointer transition-colors font-display {current_step === 1 ? 'text-white font-bold' : 'text-galvanised-light hover:text-white'}"
         >
-          <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] {current_step === 1 ? 'bg-ear-tag text-white font-bold' : 'bg-cast-iron-light text-galvanised-light'}">
+          <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] {current_step === 1 ? 'bg-ear-tag text-peat font-bold' : 'bg-cast-iron-light text-galvanised-light'}">
             2
           </span>
           <span class="hidden sm:inline">Farm Details</span>
@@ -216,7 +216,7 @@
           onclick={() => (current_step = 2)}
           class="flex items-center gap-2 text-left cursor-pointer transition-colors font-display {current_step === 2 ? 'text-white font-bold' : 'text-galvanised-light hover:text-white'}"
         >
-          <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] {current_step === 2 ? 'bg-ear-tag text-white font-bold' : 'bg-cast-iron-light text-galvanised-light'}">
+          <span class="w-5 h-5 rounded-full flex items-center justify-center text-[11px] {current_step === 2 ? 'bg-ear-tag text-peat font-bold' : 'bg-cast-iron-light text-galvanised-light'}">
             3
           </span>
           <span class="hidden sm:inline">Livestock Categories</span>
@@ -308,10 +308,10 @@
               <button
                 type="button"
                 onclick={next_step}
-                class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-ear-tag hover:bg-ear-tag-hover text-white text-xs font-bold shadow-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                class="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-ear-tag hover:bg-ear-tag-hover text-peat text-xs font-bold shadow-xs flex items-center justify-center gap-2 transition-colors cursor-pointer border border-buttercup-border"
               >
                 <span>Start New Farm Setup</span>
-                <ArrowRight class="w-4 h-4" />
+                <ArrowRight class="w-4 h-4 text-peat" />
               </button>
             </div>
           </div>
@@ -423,10 +423,10 @@
             <button
               type="button"
               onclick={next_step}
-              class="px-5 py-2.5 rounded-xl bg-ear-tag hover:bg-ear-tag-hover text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+              class="px-5 py-2.5 rounded-xl bg-ear-tag hover:bg-ear-tag-hover text-peat text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer border border-buttercup-border"
             >
               <span>Next: Livestock Categories</span>
-              <ChevronRight class="w-4 h-4" />
+              <ChevronRight class="w-4 h-4 text-peat" />
             </button>
           </div>
         </div>
@@ -437,6 +437,9 @@
         <div class="space-y-6">
           <p class="text-xs text-galvanised">
             Standard UK cattle categories are pre-loaded according to HMRC rules. Customise them to match your herd: click the quick presets, add your own categories, or remove ones you don't keep.
+          </p>
+          <p class="text-xs text-galvanised">
+            <strong class="text-cast-iron">Heifers:</strong> keep unserved and in-calf heifers under Trading Cattle. When a heifer has her first calf, move her into the Breeding Herd as a <em>Transfer Out</em> from Replacement Heifers and a <em>Transfer In</em> to Cows. Don't include cattle you graze or winter for someone else.
           </p>
 
           {#if category_error}
@@ -495,7 +498,7 @@
                     add_custom(custom_breeding_input, 'breeding_herd');
                   }
                 }}
-                placeholder="Add custom category (e.g. In-calf Heifers)..."
+                placeholder="Add custom category (e.g. Pedigree Cows)..."
                 class="flex-1 px-3.5 py-2 border border-trough rounded-xl text-xs bg-white text-cast-iron focus:ring-1 focus:ring-ear-tag focus:border-ear-tag"
               />
               <button
@@ -620,10 +623,10 @@
             <button
               type="button"
               onclick={handle_finish}
-              class="px-6 py-2.5 rounded-xl bg-ear-tag hover:bg-ear-tag-hover text-white text-xs font-bold flex items-center gap-2 transition-colors shadow-md cursor-pointer"
+              class="px-6 py-2.5 rounded-xl bg-ear-tag hover:bg-ear-tag-hover text-peat text-xs font-bold flex items-center gap-2 transition-colors shadow-md cursor-pointer border border-buttercup-border"
             >
               <span>Save Categories & View Numbers</span>
-              <CheckCircle2 class="w-4 h-4" />
+              <CheckCircle2 class="w-4 h-4 text-peat" />
             </button>
           </div>
         </div>

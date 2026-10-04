@@ -156,4 +156,205 @@ describe('Livestock Reconciliation Calculations', () => {
     expect(summary.is_balanced).toBe(true);
     expect(diagnose_discrepancy(summary)).toContain('fully balanced');
   });
+
+  describe('HMRC Herd Basis Statutory Rules (BIM55500)', () => {
+    it('flags a substantial reduction when breeding herd decreases by 20% or more (BIM55540)', () => {
+      const period: AccountingPeriod = {
+        id: 'test-p1',
+        name: 'Tax Year 2024 - 2025',
+        species: 'cattle',
+        start_date: '2024-04-06',
+        end_date: '2025-04-05',
+        categories: [
+          {
+            id: 'cows',
+            name: 'Beef Cows',
+            classification: 'breeding_herd',
+            opening_stock: 100,
+            births: 0,
+            purchases: 0,
+            transfers_in: 0,
+            sales: 25,
+            deaths: 0,
+            own_consumption: 0,
+            transfers_out: 0,
+            actual_closing_stock: 75, // 25% reduction
+          },
+        ],
+        deaths_breakdown: { under_one_year: 0, one_to_two_years: 0, over_two_years: 0 },
+      };
+
+      const summary = summarise_period(period);
+      expect(summary.herd_basis.status).toBe('substantial_reduction');
+      expect(summary.herd_basis.percentage_change).toBe(-25);
+      expect(summary.herd_basis.tax_rule).toBe('BIM55540');
+      expect(summary.herd_basis.status_badge).toContain('Substantial Reduction');
+    });
+
+    it('flags a minor reduction when breeding herd decreases by less than 20% (BIM55535)', () => {
+      const period: AccountingPeriod = {
+        id: 'test-p2',
+        name: 'Tax Year 2024 - 2025',
+        species: 'cattle',
+        start_date: '2024-04-06',
+        end_date: '2025-04-05',
+        categories: [
+          {
+            id: 'cows',
+            name: 'Beef Cows',
+            classification: 'breeding_herd',
+            opening_stock: 80,
+            births: 0,
+            purchases: 0,
+            transfers_in: 0,
+            sales: 8,
+            deaths: 0,
+            own_consumption: 0,
+            transfers_out: 0,
+            actual_closing_stock: 72, // 10% reduction
+          },
+        ],
+        deaths_breakdown: { under_one_year: 0, one_to_two_years: 0, over_two_years: 0 },
+      };
+
+      const summary = summarise_period(period);
+      expect(summary.herd_basis.status).toBe('minor_reduction');
+      expect(summary.herd_basis.percentage_change).toBe(-10);
+      expect(summary.herd_basis.tax_rule).toBe('BIM55535');
+      expect(summary.herd_basis.status_badge).toContain('Minor Reduction');
+    });
+
+    it('flags herd expansion when breeding herd size increases (BIM55530)', () => {
+      const period: AccountingPeriod = {
+        id: 'test-p3',
+        name: 'Tax Year 2024 - 2025',
+        species: 'cattle',
+        start_date: '2024-04-06',
+        end_date: '2025-04-05',
+        categories: [
+          {
+            id: 'cows',
+            name: 'Beef Cows',
+            classification: 'breeding_herd',
+            opening_stock: 50,
+            births: 0,
+            purchases: 15,
+            transfers_in: 0,
+            sales: 0,
+            deaths: 0,
+            own_consumption: 0,
+            transfers_out: 0,
+            actual_closing_stock: 65, // +30%
+          },
+        ],
+        deaths_breakdown: { under_one_year: 0, one_to_two_years: 0, over_two_years: 0 },
+      };
+
+      const summary = summarise_period(period);
+      expect(summary.herd_basis.status).toBe('expansion');
+      expect(summary.herd_basis.percentage_change).toBe(30);
+      expect(summary.herd_basis.tax_rule).toBe('BIM55530');
+    });
+  });
+
+  describe('Financial Valuations & HMRC Box 103 Text', () => {
+    it('calculates balance sheet valuations for capital and trading stock', () => {
+      const period: AccountingPeriod = {
+        id: 'test-p4',
+        name: 'Tax Year 2024 - 2025',
+        species: 'cattle',
+        start_date: '2024-04-06',
+        end_date: '2025-04-05',
+        categories: [
+          {
+            id: 'cows',
+            name: 'Beef Cows',
+            classification: 'breeding_herd',
+            opening_stock: 10,
+            births: 0,
+            purchases: 0,
+            transfers_in: 0,
+            sales: 0,
+            deaths: 0,
+            own_consumption: 0,
+            transfers_out: 0,
+            actual_closing_stock: 10,
+            opening_value_per_head: 1500,
+            closing_value_per_head: 1600,
+          },
+          {
+            id: 'stores',
+            name: 'Store Cattle',
+            classification: 'trading_stock',
+            opening_stock: 20,
+            births: 0,
+            purchases: 0,
+            transfers_in: 0,
+            sales: 0,
+            deaths: 0,
+            own_consumption: 0,
+            transfers_out: 0,
+            actual_closing_stock: 25,
+            opening_value_per_head: 800,
+            closing_value_per_head: 900,
+          },
+        ],
+        deaths_breakdown: { under_one_year: 0, one_to_two_years: 0, over_two_years: 0 },
+      };
+
+      const summary = summarise_period(period);
+      expect(summary.valuations.has_valuations).toBe(true);
+      expect(summary.valuations.breeding_opening_value).toBe(15000); // 10 * 1500
+      expect(summary.valuations.breeding_closing_value).toBe(16000); // 10 * 1600
+      expect(summary.valuations.trading_opening_value).toBe(16000);  // 20 * 800
+      expect(summary.valuations.trading_closing_value).toBe(22500);  // 25 * 900
+      expect(summary.valuations.trading_movement).toBe(6500);       // P&L stock movement
+    });
+
+    it('generates a complete HMRC Box 103 text schedule', async () => {
+      const { generate_hmrc_box103_text } = await import('./calculations');
+      const farm = {
+        farm_name: 'Meadow Farm',
+        cph_number: '12/345/6789',
+        farmer_name: 'Arthur Pendelton',
+        currency: '£',
+      };
+      const period: AccountingPeriod = {
+        id: 'test-p5',
+        name: 'Tax Year 2024 - 2025',
+        species: 'cattle',
+        start_date: '2024-04-06',
+        end_date: '2025-04-05',
+        categories: [
+          {
+            id: 'cows',
+            name: 'Beef Cows',
+            classification: 'breeding_herd',
+            opening_stock: 50,
+            births: 0,
+            purchases: 0,
+            transfers_in: 0,
+            sales: 15,
+            deaths: 0,
+            own_consumption: 0,
+            transfers_out: 0,
+            actual_closing_stock: 35, // 30% reduction (substantial)
+          },
+        ],
+        deaths_breakdown: {
+          under_one_year: 0,
+          one_to_two_years: 0,
+          over_two_years: 2,
+          tb_reactors: 2,
+        },
+      };
+
+      const text = generate_hmrc_box103_text(farm, period);
+      expect(text).toContain('=== HMRC LIVESTOCK RECONCILIATION SCHEDULE (SA103F BOX 103 / CT600) ===');
+      expect(text).toContain('CPH: 12/345/6789');
+      expect(text).toContain('Substantial Reduction (-30%)');
+      expect(text).toContain('BIM55540');
+      expect(text).toContain('Bovine TB');
+    });
+  });
 });

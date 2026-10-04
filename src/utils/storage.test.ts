@@ -10,23 +10,25 @@ import {
 } from './storage';
 
 describe('Storage and Period Rollover Management', () => {
-  it('creates valid empty farm data with the standard 7 UK cattle categories pre-populated by default', () => {
+  it('creates valid empty farm data with the standard 8 UK cattle categories pre-populated by default', () => {
     const data = create_empty_farm_data();
     expect(data.application).toBe(BRAND.name);
     expect(data.farm.farm_name).toBe('');
     expect(data.periods.length).toBe(1);
 
     const categories = data.periods[0].categories;
-    expect(categories.length).toBe(7);
+    expect(categories.length).toBe(8);
 
     const breeding_categories = categories.filter((c) => c.classification === 'breeding_herd');
     expect(breeding_categories.length).toBe(2);
     expect(breeding_categories.map((c) => c.name)).toContain('Stock Bulls');
-    expect(breeding_categories.map((c) => c.name)).toContain('Beef Cows / In-calf Heifers');
+    expect(breeding_categories.map((c) => c.name)).toContain('Beef Cows (calved)');
 
     const trading_categories = categories.filter((c) => c.classification === 'trading_stock');
-    expect(trading_categories.length).toBe(5);
+    expect(trading_categories.length).toBe(6);
     expect(trading_categories.map((c) => c.name)).toContain('Store Cattle');
+    // Heifers are immature (not yet calved) so they are trading stock, not herd basis (BIM55220)
+    expect(trading_categories.map((c) => c.name)).toContain('Replacement Heifers (unserved / in-calf)');
 
     // All initial numbers should be 0
     for (const cat of categories) {
@@ -42,8 +44,8 @@ describe('Storage and Period Rollover Management', () => {
     expect(trade_cat.opening_stock).toBe(0);
     expect(trade_cat.actual_closing_stock).toBe(0);
 
-    const breed_cat = create_breeding_category('Breeding Heifers');
-    expect(breed_cat.name).toBe('Breeding Heifers');
+    const breed_cat = create_breeding_category('Dairy Cows (calved)');
+    expect(breed_cat.name).toBe('Dairy Cows (calved)');
     expect(breed_cat.classification).toBe('breeding_herd');
     expect(breed_cat.opening_stock).toBe(0);
     expect(breed_cat.actual_closing_stock).toBe(0);
@@ -53,8 +55,10 @@ describe('Storage and Period Rollover Management', () => {
     const initial_data = create_empty_farm_data('Test Farm');
     const period_1 = initial_data.periods[0];
 
-    // Set closing stock on first category
+    // Set closing stock and valuation on first category
     period_1.categories[0].actual_closing_stock = 42;
+    period_1.categories[0].closing_value_per_head = 1450;
+    period_1.deaths_breakdown.tb_reactors = 5;
 
     const period_2 = rollover_period(
       period_1,
@@ -69,6 +73,7 @@ describe('Storage and Period Rollover Management', () => {
 
     // Rolled over category opening stock should match previous closing stock (42)
     expect(period_2.categories[0].opening_stock).toBe(42);
+    expect(period_2.categories[0].opening_value_per_head).toBe(1450);
     expect(period_2.categories[0].purchases).toBe(0);
     expect(period_2.categories[0].sales).toBe(0);
     expect(period_2.categories[0].deaths).toBe(0);
@@ -76,6 +81,7 @@ describe('Storage and Period Rollover Management', () => {
     // Deaths breakdown should be reset to 0
     expect(period_2.deaths_breakdown.under_one_year).toBe(0);
     expect(period_2.deaths_breakdown.one_to_two_years).toBe(0);
+    expect(period_2.deaths_breakdown.tb_reactors).toBe(0);
   });
 
   describe('Period Validation and Duplicate Prevention', () => {

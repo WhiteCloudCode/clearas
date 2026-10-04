@@ -1,15 +1,17 @@
 # Stocktaker — Brand Guidelines Specification
-**Version:** 1.0  
-**Status:** Approved for Implementation  
+**Version:** 2.0  
+**Status:** Approved for Implementation (Rural Field & Hedgerow Theme)
 
 ---
 
 ## 1. Brand Essence & Positioning
 
 ### 1.1 The Stance
-Stocktaker exists to do one job properly: balance the farm books and reconcile livestock numbers to audit standard without the usual headaches. It is not an "agritech lifestyle experience"; it is an exact, unyielding ledger tool built for people who have zero patience for software that loses numbers between the crush and the spreadsheet.
+Stocktaker exists to do one job properly: balance the farm books and reconcile livestock numbers to audit standard without the usual headaches. It is an uncomplicated, welcoming, and trustworthy ledger tool crafted specifically for UK farmers and agricultural accountants.
 
-* **Positioning:** Heavy-duty, audit-grade livestock reconciliation.
+It speaks with the reassuring warmth, patience, and directness of a good neighbour who knows their numbers and respects your time. It never patronises, uses zero software jargon, and prioritises large, high-legibility numerals for ease of use in farm offices and kitchen tables.
+
+* **Positioning:** Uncomplicated, rural, audit-grade livestock reconciliation.
 * **Tagline:** *Every head counted. Every book balanced.*
 * **Secondary Lockup:** *No gaps. No guesswork.*
 
@@ -28,9 +30,9 @@ The Stocktaker visual mark is **The Stanchion**: an interlocking tally mark that
 ```
 
 ### 2.1 Logo Lockups
-* **Primary Lockup:** Mark positioned to the left of the uppercase wordmark `STOCKTAKER`.
+* **Primary Lockup:** Mark positioned to the left of the title-case or uppercase wordmark `Stocktaker`.
 * **Stacked Lockup:** Mark centred directly above the wordmark. Reserved strictly for square formats, mobile splash screens, and app drawer icons.
-* **Mark Only (Favicon / App Icon):** Standalone mark enclosed within a rounded square (`border-radius: 22%`) on Slate background.
+* **Mark Only (Favicon / App Icon):** Standalone mark enclosed within a rounded square (`border-radius: 22%`) on Hedgerow Green background with warm Parchment or Buttercup stroke.
 
 ### 2.2 Clear Space
 * The minimum exclusion zone around the mark and wordmark is equal to the height of the capital letter **‘S’** in the wordmark (`1S`).
@@ -44,81 +46,86 @@ The Stocktaker visual mark is **The Stanchion**: an interlocking tally mark that
   * Full lockup: Minimum width `38mm`.
   * Standalone mark: Minimum width `8mm`.
 
-### 2.4 Logo Misuse — What Not To Do
-* **Never** round off the sharp terminal corners of the tally lines.
-* **Never** tilt, rotate, skew, or apply a drop shadow.
-* **Never** render the mark in decorative greens, reds, or gradients.
-* **Never** replace the wordmark font with standard system Arial or Helvetica.
-* **Never** stick a cartoon animal silhouette, tractor, or ear-tag graphic alongside it.
+### 2.4 Logo Rules
+* Terminal corners remain clean and deliberate.
+* Render in Hedgerow Green, Parchment White, Buttercup, or deep Charcoal.
+* Never tilt, skew, or apply artificial decorative shadows.
+* Never stick a cartoon animal silhouette, tractor, or novelty graphic alongside it.
 
 ---
 
 ## 3. Colour Palette & Hierarchy
 
-The palette takes its cues from galvanised steel, dark cast iron, and high-visibility ear tags. It remains legibly high-contrast under direct shed lighting or grease-marked field displays.
+The palette takes its inspiration from the British agricultural landscape: deep hedgerow foliage, warm parchment paper ledgers, rich oak timber, and bright buttercup accents for primary actions. Every colour pairing guarantees high contrast (WCAG AAA compliant for primary reading) to comfortably support older eyes.
 
-### 3.1 Core Palette
+### 3.1 Core Palette (Field & Hedgerow)
 
-| Role | Colour Name | Hex | RGB | CMYK | Purpose |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Primary Base** | *Cast Iron* | `#1E242B` | `30, 36, 43` | `75, 65, 56, 68` | Headers, primary text, brand mark ground |
-| **Accent / Action** | *Ear Tag Amber* | `#E67E22` | `230, 126, 34` | `4, 60, 98, 0` | Primary buttons, active row indicators, focus rings |
-| **Mid-Neutral** | *Galvanised Slate* | `#64748B` | `100, 116, 139` | `60, 43, 27, 2` | Column headers, subtle borders, metadata labels |
-| **Light Neutral** | *Trough Grey* | `#E2E8F0` | `226, 232, 240` | `12, 8, 7, 0` | Table gridlines, card strokes, alternating row fills |
-| **Canvas** | *Chalk White* | `#F8FAFC` | `248, 250, 252` | `2, 1, 1, 0` | Main application background, report sheets |
+| Role | Colour Name | Hex | RGB | Purpose |
+| :--- | :--- | :--- | :--- | :--- |
+| **Primary Brand / Header** | *Hedgerow Green* | `#2E4A2B` | `46, 74, 43` | Top navigation, main section headings, brand grounds |
+| **Primary Brand Light** | *Hedgerow Leaf* | `#3E613A` | `62, 97, 58` | Hover states, active tabs |
+| **Primary Brand Dark** | *Deep Forest* | `#1E331C` | `30, 51, 28` | Navbar base, dark accents |
+| **Action / Primary Button** | *Buttercup Yellow* | `#F2C94C` | `242, 201, 76` | Primary buttons, active indicators, focus rings |
+| **Action Border / Hover** | *Golden Gorse* | `#D4A82A` | `212, 168, 42` | Button borders, hover shading |
+| **Neutral Deep Text** | *Charcoal Peat* | `#2B2A22` | `43, 42, 34` | Primary body copy, table figures, button labels |
+| **Mid-Neutral / Labels** | *Oak Brown* | `#6B4F32` | `107, 79, 50` | Column headers, secondary metadata, helper text |
+| **Light Neutral / Border** | *Dry Stone* | `#DDD6C1` | `221, 214, 193` | Table gridlines, card borders, dividers |
+| **Surface / Card Ground** | *Warm Milk* | `#FFFDF6` | `255, 253, 246` | Data cards, modal sheets, input field grounds |
+| **Canvas** | *Parchment* | `#F7F4EA` | `247, 244, 234` | Main page background, application body |
 
 ### 3.2 Audit & Validation Status Palette
-Used solely for reconciliation balances and audit discrepancies. Never use these for decorative styling.
+Used for livestock reconciliation balances and ledger verification. Color is always reinforced with plain symbols (`✓`, `✗`) and explicit plain words so no user relies on colour alone.
 
-* **Reconciled / Balanced (`#15803D` — Yard Green):** Used when `Opening + In - Out = Closing` resolves to zero variance.
-* **Discrepancy / Unmatched (`#B91C1C` — Cull Red):** Used when tag counts, CTS movements, or valuation figures fail to balance.
-* **Pending Verification (`#D97706` — Warning Ochre):** Temporary records awaiting ear-tag allocation or movement confirmation.
+* **Reconciled / Balanced (`#1F7A3A` on `#DFEEDD` ground — Clover Green):** Used when `Opening + In - Out = Closing` balances with zero variance. Always accompanied by `✓ Balanced`.
+* **Discrepancy / Unresolved (`#A8322A` on `#F5DDD9` ground — Rust Red):** Used when numbers do not reconcile. Always accompanied by `✗ [N] missing / extra`.
+* **Pending / Count Needed (`#7A4E0E` on `#F8E8BF` ground — Harvest Amber):** Temporary states awaiting closing tally counts.
 
 ### 3.3 Application Rules & Distribution
-* **60% Canvas & Sheet:** White and Chalk White dominant for maximum legibility of dense numbers.
-* **30% Structure & Text:** Cast Iron and Galvanised Slate providing razor-sharp definition.
-* **10% Accent & Status:** Amber, Yard Green, and Cull Red reserved strictly for actions and verification states.
+* **65% Canvas & Surface:** Parchment (`#F7F4EA`) and Warm Milk (`#FFFDF6`) dominant for a warm, easy-on-the-eyes background.
+* **25% Structure & Copy:** Hedgerow Green (`#2E4A2B`) and Charcoal Peat (`#2B2A22`) for sharp definition and effortless legibility.
+* **10% Action & Verification:** Buttercup Yellow (`#F2C94C`), Clover Green (`#1F7A3A`), and Rust Red (`#A8322A`) reserved strictly for user actions and balancing states.
 
 ---
 
 ## 4. Typography System
 
-Legibility of figures is paramount. Ambiguous digits cost real money when an HMRC audit lands.
+Older farmers should never have to squint or reach for a magnifying glass. Typography prioritises large type sizes, open proportions, zero visual clutter, and unmistakable digit differentiation.
 
-### 4.1 Typeface Selection
-* **Primary Interface & Headings:** **DIN 2014** or **Barlow Semi Condensed**
-* **Body & Explanatory Copy:** **Inter** (UK English features enabled: tabular lining figures available).
-* **Reconciliation Grids & Ear Tag Codes:** **JetBrains Mono** or **Geist Mono**
+### 4.1 Typeface Selection (Offline-First via Fontsource)
+* **Display & Headings:** **Bitter** (Sturdy slab serif with warm rustic character, reminiscent of traditional agricultural books and ledgers).
+* **Body, Controls & Numerals:** **Atkinson Hyperlegible Next** (Engineered specifically by the Braille Institute for low-vision and senior readers; shapes for `0`, `O`, `1`, `I`, `l`, `8`, `3`, `5` are distinctly sculpted to prevent confusion).
+* **Self-Contained & Offline:** Bundled directly with the application using `@fontsource/bitter` and `@fontsource/atkinson-hyperlegible-next`. Zero reliance on Google Fonts CDN for complete privacy and offline resilience.
 
 ### 4.2 Type Hierarchy Spec
 
-| Level | Typeface | Weight | Size / Line Height | Case / Tracking |
+| Level | Typeface | Weight | Size / Line Height | Purpose |
 | :--- | :--- | :--- | :--- | :--- |
-| **Display / Section** | DIN 2014 | Bold (700) | `24px / 32px` | Sentence case, `-0.01em` |
-| **Table Headings** | DIN 2014 | Medium (500) | `13px / 18px` | Uppercase, `+0.05em` |
-| **Body Text** | Inter | Regular (400) | `14px / 20px` | Sentence case, normal |
-| **Data Cells (Text)** | Inter | Regular (400) | `13px / 18px` | Sentence case, normal |
-| **Data Cells (Figures)** | JetBrains Mono | Medium (500) | `13px / 18px` | Tabular numbers, `0.00em` |
-| **Status / Badge** | DIN 2014 | Bold (700) | `11px / 14px` | Uppercase, `+0.08em` |
+| **Display / Main Title** | Bitter | Bold (700) | `26px / 34px` | Section titles, farm holding name |
+| **Section Headings (H2/H3)**| Bitter | SemiBold (600) | `20px – 22px / 28px`| Category headings, modal headers |
+| **Body Copy** | Atkinson Hyperlegible Next | Regular (400) | `16px – 17px / 24px`| Explanations, helper guidance, notices |
+| **Table Column Headers** | Atkinson Hyperlegible Next | SemiBold (600) | `15px / 20px` | Category, Inflows, Outflows, Balances |
+| **Data Cells (Figures)** | Atkinson Hyperlegible Next | SemiBold (600) | `16px – 17px / 22px`| Tabular numbers, head counts |
+| **Primary Button Labels** | Atkinson Hyperlegible Next | Bold (700) | `16px / 20px` | Action buttons (min 48px height touch target) |
+| **Status Badges** | Atkinson Hyperlegible Next | SemiBold (600) | `14px – 15px / 18px`| Clear badges with icon + text label |
 
 ---
 
 ## 5. Tone of Voice & Copy Standards
 
-Stocktaker speaks like an experienced agricultural accountant who grew up on a farm: bone-dry, polite, highly competent, and allergic to waffle.
+Stocktaker speaks like a trusted neighbour who has farmed for forty years and happens to be brilliant with accounts: warm, calm, plain-spoken, and respectful.
 
 ### 5.1 The Principles
-1. **Never guess, never blag:** If a field is missing, say it’s missing. Don't smooth over data gaps with cheerful assumptions.
-2. **Economy of language:** If three words do the job, using ten is just wasting daylight.
-3. **No tech buzzwords:** Ban words like *seamless, synergise, delight, frictionless, bespoke,* and *disrupt*. 
-4. **Use proper terminology:** Refer to stock correctly (stores, bullocks, heifers in calf, casualties, deemed cost, opening book).
-5. **Keep your head:** When a ledger doesn't balance, report the arithmetic calmly. Don't panic, and never use exclamation marks in error states.
+1. **Plain British farming English:** Use natural terms farmers actually use (*heifers in calf*, *stores*, *beast*, *casualties*, *holding number*).
+2. **Helpful and reassuring:** Never scold or show alarming red warning banners. If a group does not balance, explain clearly where the difference lies and how to check it.
+3. **Never patronise:** Farmers run complex businesses in all weathers. Keep instructions simple, direct, and unpretentious.
+4. **No software buzzwords:** Eliminate modern tech jargon. No *frictionless*, *onboarding*, *optimised*, *synergy*, or *dashboards*. Use *Getting started*, *Farm ledger*, *Summary*, *Balances*.
+5. **Calm guidance:** Always keep punctuation calm. No exclamation marks in error dialogues.
 
 ### 5.2 Copy Comparison Examples
 
-| Context | Avoid (SaaS Fluff) | Stocktaker Standard (Direct & Dry) |
+| Context | Cold / Technical | Warm Rural Stocktaker Standard |
 | :--- | :--- | :--- |
-| **Reconciliation Complete** | "Awesome job! You've successfully crushed your stock reconciliations for this quarter! 🎉" | **Reconciled.** 214 head accounted for. No variance detected across CTS records. |
-| **Discrepancy Error** | "Oopsie! Looks like our smart system couldn't find a couple of furry friends." | **Unresolved discrepancy:** 3 head missing between CTS movements and closing count. Check pen 4 casualty records. |
-| **Empty State** | "Ready to start your magical livestock journey? Add your first cow below!" | **No stock recorded.** Enter opening head count or import herd register CSV to begin. |
-| **Deemed Cost Toggle** | "Let our AI magically guess your stock valuation based on the latest market vibes!" | **Valuation basis:** HMRC deemed cost applied at 60% of open market value (BIM55410). |
+| **Reconciliation Complete** | "Zero variance detected. Records reconciled." | **Everything balances.** All head accounted for across your records. |
+| **Discrepancy Error** | "Arithmetic validation error: -2 head variance." | **2 head out of balance.** The numbers in and out leave 26, but your closing count shows 24. Take a look at deaths or sales for this group. |
+| **Empty State** | "No records in database. Click to initialise." | **No stock recorded yet.** Enter your opening head count or load an existing farm file to begin. |
+| **Save Confirmation** | "File exported to local filesystem." | **Farm file saved.** Your records are safely saved on your computer. |

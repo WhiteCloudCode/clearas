@@ -233,9 +233,9 @@
           <button
             type="submit"
             disabled={!is_valid}
-            class="px-5 py-2 bg-ear-tag hover:bg-ear-tag-hover disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold rounded-lg transition-colors shadow-2xs flex items-center gap-1.5 cursor-pointer"
+            class="px-5 py-2 bg-ear-tag hover:bg-ear-tag-hover disabled:opacity-50 disabled:cursor-not-allowed text-peat text-xs font-bold rounded-lg transition-colors shadow-2xs flex items-center gap-1.5 cursor-pointer border border-buttercup-border"
           >
-            <Check class="w-4 h-4" />
+            <Check class="w-4 h-4 text-peat" />
             Save Period
           </button>
         </div>
