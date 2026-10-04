@@ -40,14 +40,20 @@
     )
   );
 
-  $effect(() => {
-    if (has_existing_valuations && !show_valuations) {
-      show_valuations = true;
+  function block_invalid_number_keys(e: KeyboardEvent) {
+    if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+      e.preventDefault();
     }
-    if (has_existing_advanced && !show_advanced_movements) {
-      show_advanced_movements = true;
+  }
+
+  function handle_input_sanitise(e: Event, category: LivestockCategory, field: keyof LivestockCategory) {
+    const target = e.target as HTMLInputElement;
+    const clean = target.value.replace(/[^0-9]/g, '');
+    if (clean !== target.value) {
+      target.value = clean;
     }
-  });
+    (category as any)[field] = clean === '' ? 0 : parseInt(clean, 10);
+  }
 </script>
 
 {#snippet category_row(category: LivestockCategory)}
@@ -66,34 +72,46 @@
     <!-- Inflows -->
     <td class="py-1 px-1.5 text-right">
       <input
-        type="number"
-        min="0"
-        bind:value={category.opening_stock}
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        value={category.opening_stock}
+        onkeydown={block_invalid_number_keys}
+        oninput={(e) => handle_input_sanitise(e, category, 'opening_stock')}
         class="w-full text-right py-1.5 px-2 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
       />
     </td>
     <td class="py-1 px-1.5 text-right">
       <input
-        type="number"
-        min="0"
-        bind:value={category.births}
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        value={category.births}
+        onkeydown={block_invalid_number_keys}
+        oninput={(e) => handle_input_sanitise(e, category, 'births')}
         class="w-full text-right py-1.5 px-2 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
       />
     </td>
     <td class="py-1 px-1.5 text-right">
       <input
-        type="number"
-        min="0"
-        bind:value={category.purchases}
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        value={category.purchases}
+        onkeydown={block_invalid_number_keys}
+        oninput={(e) => handle_input_sanitise(e, category, 'purchases')}
         class="w-full text-right py-1.5 px-2 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
       />
     </td>
     {#if show_advanced_movements}
       <td class="py-1 px-1.5 text-right bg-amber-50/40">
         <input
-          type="number"
-          min="0"
-          bind:value={category.transfers_in}
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          value={category.transfers_in}
+          onkeydown={block_invalid_number_keys}
+          oninput={(e) => handle_input_sanitise(e, category, 'transfers_in')}
           class="w-full text-right py-1.5 px-2 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
         />
       </td>
@@ -104,34 +122,46 @@
     <!-- Outflows -->
     <td class="py-1 px-1.5 text-right">
       <input
-        type="number"
-        min="0"
-        bind:value={category.sales}
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        value={category.sales}
+        onkeydown={block_invalid_number_keys}
+        oninput={(e) => handle_input_sanitise(e, category, 'sales')}
         class="w-full text-right py-1.5 px-2 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
       />
     </td>
     <td class="py-1 px-1.5 text-right">
       <input
-        type="number"
-        min="0"
-        bind:value={category.deaths}
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        value={category.deaths}
+        onkeydown={block_invalid_number_keys}
+        oninput={(e) => handle_input_sanitise(e, category, 'deaths')}
         class="w-full text-right py-1.5 px-2 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
       />
     </td>
     {#if show_advanced_movements}
       <td class="py-1 px-1.5 text-right bg-amber-50/40">
         <input
-          type="number"
-          min="0"
-          bind:value={category.own_consumption}
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          value={category.own_consumption}
+          onkeydown={block_invalid_number_keys}
+          oninput={(e) => handle_input_sanitise(e, category, 'own_consumption')}
           class="w-full text-right py-1.5 px-2 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
         />
       </td>
       <td class="py-1 px-1.5 text-right bg-amber-50/40">
         <input
-          type="number"
-          min="0"
-          bind:value={category.transfers_out}
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          value={category.transfers_out}
+          onkeydown={block_invalid_number_keys}
+          oninput={(e) => handle_input_sanitise(e, category, 'transfers_out')}
           class="w-full text-right py-1.5 px-2 border border-trough rounded focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs"
         />
       </td>
@@ -145,9 +175,12 @@
     </td>
     <td class="py-1 px-1.5 text-right">
       <input
-        type="number"
-        min="0"
-        bind:value={category.actual_closing_stock}
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        value={category.actual_closing_stock}
+        onkeydown={block_invalid_number_keys}
+        oninput={(e) => handle_input_sanitise(e, category, 'actual_closing_stock')}
         class="w-full text-right py-1.5 px-2 font-bold border border-trough rounded bg-chalk focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono tabular-nums text-xs text-cast-iron"
       />
     </td>

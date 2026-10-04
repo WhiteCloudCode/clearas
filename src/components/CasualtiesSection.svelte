@@ -10,6 +10,21 @@
   let { period = $bindable() }: Props = $props();
 
   let deaths_check = $derived(validate_deaths_breakdown(period));
+
+  function block_invalid_number_keys(e: KeyboardEvent) {
+    if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+      e.preventDefault();
+    }
+  }
+
+  function handle_sanitise(e: Event, key: 'under_one_year' | 'one_to_two_years' | 'over_two_years' | 'tb_reactors') {
+    const target = e.target as HTMLInputElement;
+    const clean = target.value.replace(/[^0-9]/g, '');
+    if (clean !== target.value) {
+      target.value = clean;
+    }
+    period.deaths_breakdown[key] = clean === '' ? 0 : parseInt(clean, 10);
+  }
 </script>
 
 <div class="bg-white rounded-xl shadow-xs border border-trough overflow-hidden mb-6 no-print">
@@ -48,9 +63,12 @@
         </label>
         <input
           id="calves-deaths-input"
-          type="number"
-          min="0"
-          bind:value={period.deaths_breakdown.under_one_year}
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          value={period.deaths_breakdown.under_one_year}
+          onkeydown={block_invalid_number_keys}
+          oninput={(e) => handle_sanitise(e, 'under_one_year')}
           class="w-full text-right py-2 px-3 border border-trough rounded-lg focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono font-bold text-sm tabular-nums text-cast-iron bg-chalk/50"
         />
       </div>
@@ -61,9 +79,12 @@
         </label>
         <input
           id="yearlings-deaths-input"
-          type="number"
-          min="0"
-          bind:value={period.deaths_breakdown.one_to_two_years}
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          value={period.deaths_breakdown.one_to_two_years}
+          onkeydown={block_invalid_number_keys}
+          oninput={(e) => handle_sanitise(e, 'one_to_two_years')}
           class="w-full text-right py-2 px-3 border border-trough rounded-lg focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono font-bold text-sm tabular-nums text-cast-iron bg-chalk/50"
         />
       </div>
@@ -74,9 +95,12 @@
         </label>
         <input
           id="mature-deaths-input"
-          type="number"
-          min="0"
-          bind:value={period.deaths_breakdown.over_two_years}
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          value={period.deaths_breakdown.over_two_years}
+          onkeydown={block_invalid_number_keys}
+          oninput={(e) => handle_sanitise(e, 'over_two_years')}
           class="w-full text-right py-2 px-3 border border-trough rounded-lg focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono font-bold text-sm tabular-nums text-cast-iron bg-chalk/50"
         />
       </div>
@@ -88,11 +112,14 @@
         </label>
         <input
           id="tb-reactors-input"
-          type="number"
-          min="0"
-          bind:value={period.deaths_breakdown.tb_reactors}
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]*"
+          value={period.deaths_breakdown.tb_reactors || ''}
           placeholder="0"
           title="Count of statutory compulsory slaughter removals included in losses (triggers HS224 replacement rules)"
+          onkeydown={block_invalid_number_keys}
+          oninput={(e) => handle_sanitise(e, 'tb_reactors')}
           class="w-full text-right py-2 px-3 border border-trough rounded-lg focus:ring-1 focus:ring-ear-tag focus:border-ear-tag font-mono font-bold text-sm tabular-nums text-cast-iron bg-chalk/50"
         />
       </div>
