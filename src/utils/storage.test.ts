@@ -7,6 +7,7 @@ import {
   create_trading_category,
   create_breeding_category,
   create_blank_category,
+  format_uk_datetime,
 } from './storage';
 
 describe('Storage and Period Rollover Management', () => {
@@ -178,6 +179,25 @@ describe('Storage and Period Rollover Management', () => {
       expect(res.is_valid).toBe(true);
       expect(res.name_error).toBeNull();
       expect(res.date_error).toBeNull();
+    });
+  });
+
+  describe('format_uk_datetime', () => {
+    it('returns "Unknown date" for undefined, null, or invalid strings', () => {
+      expect(format_uk_datetime(undefined)).toBe('Unknown date');
+      expect(format_uk_datetime('')).toBe('Unknown date');
+      expect(format_uk_datetime('invalid-date')).toBe('Unknown date');
+    });
+
+    it('formats valid ISO dates into full UK English string', () => {
+      const formatted = format_uk_datetime('2026-10-04T13:20:00Z', 'full');
+      expect(formatted).toContain('October 2026');
+      expect(formatted).toContain('at');
+    });
+
+    it('formats valid ISO dates into compact UK English string', () => {
+      const formatted = format_uk_datetime('2026-10-04T13:20:00Z', 'compact');
+      expect(formatted).toContain('Oct');
     });
   });
 });

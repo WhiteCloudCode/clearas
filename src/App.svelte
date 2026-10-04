@@ -32,7 +32,8 @@
   import PeriodModal from './components/PeriodModal.svelte';
   import ConfirmationModal from './components/ConfirmationModal.svelte';
   import GuidedEntryWizard from './components/GuidedEntryWizard.svelte';
-  import { ListFilter, TableProperties } from '@lucide/svelte';
+  import FileLoadedModal from './components/FileLoadedModal.svelte';
+  import { ListFilter, TableProperties, Coffee } from '@lucide/svelte';
 
   // Core application state
   let data = $state<MasterFarmFile>(create_empty_farm_data());
@@ -44,6 +45,7 @@
   let opened_from_workspace = $state(false);
   let is_farm_modal_open = $state(false);
   let is_period_modal_open = $state(false);
+  let is_file_loaded_modal_open = $state(false);
 
   // In-app Confirmation Dialog State
   let confirmation_state = $state<{
@@ -158,6 +160,7 @@
       is_dirty = false;
       opened_from_workspace = false;
       active_view = 'editor';
+      is_file_loaded_modal_open = true;
     } catch (err: any) {
       if (err.name !== 'AbortError') {
         // Fallback to traditional file input
@@ -177,6 +180,7 @@
         filename = file.name;
         is_dirty = false;
         active_view = 'editor';
+        is_file_loaded_modal_open = true;
       } catch (err) {
         show_notice(
           'File Load Error',
@@ -541,6 +545,27 @@
       {/if}
     {/if}
   </main>
+
+  <!-- Application Footer (Buy Me a Coffee & Rural Identity, hidden during print) -->
+  <footer class="mt-auto border-t border-dry-stone/70 bg-warm-milk/80 py-5 text-xs text-peat no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2 text-oak text-center sm:text-left">
+        <span class="font-display font-bold text-hedgerow text-sm">{BRAND.name}</span>
+        <span>•</span>
+        <span>Free, zero-backend, privacy-first livestock reconciliation for British farming.</span>
+      </div>
+      <a
+        href="https://buymeacoffee.com/iainwhite"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-ear-tag hover:bg-ear-tag-hover text-peat font-semibold border border-buttercup-border transition-colors shadow-2xs cursor-pointer"
+        title="Support Stocktaker development on Buy Me a Coffee"
+      >
+        <Coffee class="w-4 h-4 text-peat" />
+        <span>Buy me a coffee</span>
+      </a>
+    </div>
+  </footer>
 </div>
 
 <!-- Farm Details Modal -->
@@ -575,4 +600,19 @@
   is_alert_only={confirmation_state.is_alert_only}
   on_confirm={handle_dialog_confirm}
   on_cancel={handle_dialog_cancel}
+/>
+
+<!-- File Load Confirmation Modal -->
+<FileLoadedModal
+  is_open={is_file_loaded_modal_open}
+  filename={filename || 'Farm File'}
+  farm_name={data.farm.farm_name}
+  cph_number={data.farm.cph_number}
+  last_modified={data.last_modified}
+  period_count={data.periods.length}
+  on_confirm={() => (is_file_loaded_modal_open = false)}
+  on_choose_different={() => {
+    is_file_loaded_modal_open = false;
+    open_file();
+  }}
 />

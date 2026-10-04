@@ -56,13 +56,13 @@
 }
 
 :root {
-  /* Default initial zoom level: 110% (scaled up for older farmers) */
-  --app-font-scale: 1.1;
+  /* Default initial zoom level: 100% (with base size set to 17.6px for farmer comfort) */
+  --app-font-scale: 1.0;
 }
 
 @layer base {
   html {
-    font-size: calc(16px * var(--app-font-scale));
+    font-size: calc(17.6px * var(--app-font-scale));
   }
 
   body {

@@ -243,6 +243,22 @@
             </div>
           </div>
 
+          <!-- Reading Comfort & Text Size Callout -->
+          <div class="p-4 rounded-xl bg-warm-milk border border-ear-tag/60 shadow-2xs flex items-start sm:items-center gap-3.5">
+            <div class="w-9 h-9 rounded-lg bg-ear-tag/20 border border-ear-tag/50 text-cast-iron flex items-center justify-center shrink-0 font-display font-bold text-base shadow-2xs">
+              A
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xs font-bold text-cast-iron font-display uppercase tracking-wider mb-0.5 flex items-center gap-2">
+                <span>Reading Comfort &amp; Text Size</span>
+                <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono bg-ear-tag/30 text-cast-iron border border-ear-tag/40 font-semibold">100% Default</span>
+              </h3>
+              <p class="text-xs text-galvanised-dark leading-relaxed">
+                Text starts scaled at 100% for comfortable farm viewing. If you would like larger or smaller text, you can adjust it at any time using the highlighted <span class="font-bold text-cast-iron font-mono bg-trough/60 px-1.5 py-0.5 rounded text-[11px] border border-trough">A 100%</span> button in the top-right header.
+              </p>
+            </div>
+          </div>
+
           <!-- The Core Pillars -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="p-4 rounded-xl bg-chalk border border-trough flex flex-col justify-between">
@@ -276,7 +292,7 @@
             <div class="p-4 rounded-xl bg-chalk border border-trough flex flex-col justify-between">
               <div>
                 <div class="w-8 h-8 rounded-lg bg-trough text-cast-iron flex items-center justify-center mb-3">
-                  <Save class="w-4 h-4 text-ear-tag" />
+                  <Save class="w-4 h-4 text-warning-ochre" />
                 </div>
                 <h3 class="text-xs font-bold text-cast-iron uppercase tracking-wider mb-1 font-display">
                   Single Master File

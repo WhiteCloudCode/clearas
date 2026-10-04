@@ -315,11 +315,8 @@ export async function save_to_file_handle(
   file_handle: FileSystemFileHandle,
   data: MasterFarmFile
 ): Promise<void> {
-  const updated_data: MasterFarmFile = {
-    ...data,
-    last_modified: new Date().toISOString(),
-  };
-  const compressed_bytes = await compress_data(updated_data);
+  data.last_modified = new Date().toISOString();
+  const compressed_bytes = await compress_data(data);
   const writable = await (file_handle as any).createWritable();
   await writable.write(compressed_bytes);
   await writable.close();
@@ -350,11 +347,8 @@ export async function save_file_as_via_picker(
  * Universal fallback download method for browsers that do not support the File System Access API
  */
 export async function download_farm_file(data: MasterFarmFile, filename: string): Promise<void> {
-  const updated_data: MasterFarmFile = {
-    ...data,
-    last_modified: new Date().toISOString(),
-  };
-  const compressed_bytes = await compress_data(updated_data);
+  data.last_modified = new Date().toISOString();
+  const compressed_bytes = await compress_data(data);
   const blob = new Blob([compressed_bytes as any], {
     type: 'application/octet-stream',
   });
@@ -374,4 +368,41 @@ export async function download_farm_file(data: MasterFarmFile, filename: string)
 export async function read_file_from_input(file: File): Promise<MasterFarmFile> {
   const buffer = await file.arrayBuffer();
   return await decompress_data(buffer);
+}
+
+/**
+ * Formats an ISO 8601 date string into a user-friendly UK English timestamp
+ * e.g. "4 October 2026 at 13:20" (full) or "4 Oct, 13:20" (compact)
+ */
+export function format_uk_datetime(
+  iso_date?: string,
+  style: 'full' | 'compact' = 'full'
+): string {
+  if (!iso_date) return 'Unknown date';
+  const date = new Date(iso_date);
+  if (isNaN(date.getTime())) return 'Unknown date';
+
+  if (style === 'compact') {
+    return new Intl.DateTimeFormat('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(date);
+  }
+
+  const date_part = new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(date);
+
+  const time_part = new Intl.DateTimeFormat('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).format(date);
+
+  return `${date_part} at ${time_part}`;
 }

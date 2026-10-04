@@ -82,8 +82,8 @@
 
   function focus_input_index(idx: number, step_name?: string) {
     const selector = step_name
-      ? `[data-step="${step_name}"][data-idx="${idx}"] input`
-      : `[data-step="${active_step.id}"][data-idx="${idx}"] input`;
+      ? `[data-step="${step_name}"][data-idx="${idx}"] input[type="number"]`
+      : `[data-step="${active_step.id}"][data-idx="${idx}"] input[type="number"]`;
     const el = document.querySelector(selector) as HTMLInputElement | null;
     if (el) {
       el.focus();
@@ -172,7 +172,7 @@
     </div>
 
     <!-- Stepper Navigation Pills -->
-    <div class="grid grid-cols-4 md:grid-cols-8 gap-1.5">
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-1.5">
       {#each STEPS as step, idx}
         {@const Icon = step.icon}
         <button
