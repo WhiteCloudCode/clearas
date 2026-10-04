@@ -44,12 +44,12 @@
     on_toggle_view,
   }: Props = $props();
 
-  // Zoom scale state (1.0 = 100%, 1.1 = 110% default, up to 1.4 = 140%)
-  let zoom_scale = $state<number>(1.1);
+  // Zoom scale state (1.0 = 100% default, from 0.8 = 80% up to 1.8 = 180%)
+  let zoom_scale = $state<number>(1.0);
   let is_zoom_menu_open = $state(false);
 
   function apply_zoom(scale: number) {
-    const clamped = Math.min(1.4, Math.max(0.9, Math.round(scale * 100) / 100));
+    const clamped = Math.min(1.8, Math.max(0.8, Math.round(scale * 100) / 100));
     zoom_scale = clamped;
     if (typeof document !== 'undefined') {
       document.documentElement.style.setProperty('--app-font-scale', clamped.toString());
@@ -66,7 +66,7 @@
   }
 
   function reset_zoom() {
-    apply_zoom(1.1);
+    apply_zoom(1.0);
   }
 
   // Restore saved zoom level on load
@@ -75,7 +75,7 @@
       const saved = localStorage.getItem(BRAND.text_zoom_key);
       if (saved) {
         const parsed = parseFloat(saved);
-        if (!isNaN(parsed) && parsed >= 0.9 && parsed <= 1.4) {
+        if (!isNaN(parsed) && parsed >= 0.8 && parsed <= 1.8) {
           apply_zoom(parsed);
           return;
         }
@@ -83,13 +83,13 @@
     } catch {
       // Ignore
     }
-    apply_zoom(1.1);
+    apply_zoom(1.0);
   });
 </script>
 
 <header class="bg-cast-iron text-white border-b border-cast-iron-light shadow-md no-print">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 gap-4">
+    <div class="flex items-center justify-between min-h-16 py-2 gap-3 flex-wrap sm:flex-nowrap">
       <!-- Brand & Farm Title -->
       <div class="flex items-center gap-4 min-w-0">
         <div class="flex items-center gap-2">
@@ -146,8 +146,155 @@
 
       <!-- Actions & View Switcher -->
       <div class="flex items-center gap-2">
+        {#snippet zoom_control()}
+          <div class="relative flex items-center">
+            <button
+              type="button"
+              onclick={() => (is_zoom_menu_open = !is_zoom_menu_open)}
+              class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer {is_zoom_menu_open
+                ? 'bg-cast-iron-light text-white border-buttercup'
+                : active_view === 'onboarding'
+                  ? 'bg-cast-iron-light text-white border-ear-tag ring-2 ring-ear-tag ring-offset-2 ring-offset-cast-iron shadow-sm animate-pulse'
+                  : 'bg-cast-iron-light/40 hover:bg-cast-iron-light text-trough hover:text-white border-galvanised/30'}"
+              title={active_view === 'onboarding' ? 'Adjust text size (default 100%)' : 'Adjust text size for easier reading'}
+              aria-expanded={is_zoom_menu_open}
+            >
+              <span class="font-display font-bold text-sm leading-none text-buttercup">A</span>
+              <span class="{active_view === 'onboarding' ? 'inline' : 'hidden xl:inline'} text-xs">{Math.round(zoom_scale * 100)}%</span>
+            </button>
+
+            {#if is_zoom_menu_open}
+              <!-- Backdrop to dismiss -->
+              <button
+                type="button"
+                tabindex="-1"
+                onclick={() => (is_zoom_menu_open = false)}
+                class="fixed inset-0 z-40 cursor-default bg-transparent"
+                aria-label="Close zoom menu"
+              ></button>
+
+              <!-- Zoom Controls Dropdown -->
+              <div class="absolute right-0 top-full mt-2 z-50 w-72 max-w-[calc(100vw-2rem)] max-h-[85vh] overflow-y-auto p-3.5 bg-warm-milk text-peat rounded-xl shadow-xl border-2 border-dry-stone space-y-3 animate-in fade-in zoom-in-95 duration-100">
+                <div class="flex items-center justify-between pb-2 border-b border-dry-stone">
+                  <span class="font-display font-bold text-sm text-hedgerow">Text Size</span>
+                  <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-hedgerow-leaf/15 text-hedgerow font-mono">
+                    {Math.round(zoom_scale * 100)}%
+                  </span>
+                </div>
+
+                <!-- Quick Jump Presets -->
+                <div class="space-y-1">
+                  <div class="flex items-center justify-between text-[11px] text-oak font-semibold">
+                    <span>Quick Jump</span>
+                    <span class="text-[10px] text-oak/80">80% &ndash; 180%</span>
+                  </div>
+                  <div class="grid grid-cols-4 gap-1">
+                    <button
+                      type="button"
+                      onclick={() => apply_zoom(0.8)}
+                      class="py-1 px-1 rounded text-xs font-bold border transition-colors cursor-pointer text-center {Math.round(zoom_scale * 100) === 80
+                        ? 'bg-hedgerow text-white border-hedgerow shadow-2xs'
+                        : 'bg-parchment hover:bg-dry-stone text-peat border-dry-stone'}"
+                      title="Set text size to 80%"
+                    >
+                      80%
+                    </button>
+                    <button
+                      type="button"
+                      onclick={() => apply_zoom(1.0)}
+                      class="py-1 px-1 rounded text-xs font-bold border transition-colors cursor-pointer text-center {Math.round(zoom_scale * 100) === 100
+                        ? 'bg-hedgerow text-white border-hedgerow shadow-2xs'
+                        : 'bg-parchment hover:bg-dry-stone text-peat border-dry-stone'}"
+                      title="Set text size to default 100%"
+                    >
+                      100%
+                    </button>
+                    <button
+                      type="button"
+                      onclick={() => apply_zoom(1.4)}
+                      class="py-1 px-1 rounded text-xs font-bold border transition-colors cursor-pointer text-center {Math.round(zoom_scale * 100) === 140
+                        ? 'bg-hedgerow text-white border-hedgerow shadow-2xs'
+                        : 'bg-parchment hover:bg-dry-stone text-peat border-dry-stone'}"
+                      title="Set text size to 140%"
+                    >
+                      140%
+                    </button>
+                    <button
+                      type="button"
+                      onclick={() => apply_zoom(1.8)}
+                      class="py-1 px-1 rounded text-xs font-bold border transition-colors cursor-pointer text-center {Math.round(zoom_scale * 100) === 180
+                        ? 'bg-hedgerow text-white border-hedgerow shadow-2xs'
+                        : 'bg-parchment hover:bg-dry-stone text-peat border-dry-stone'}"
+                      title="Set text size to 180%"
+                    >
+                      180%
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Quick Steppers (+/- 10%) -->
+                <div class="flex items-center gap-1.5 justify-between">
+                  <button
+                    type="button"
+                    onclick={() => adjust_zoom(-0.1)}
+                    disabled={zoom_scale <= 0.8}
+                    class="flex-1 py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-peat border border-dry-stone disabled:opacity-40 disabled:cursor-not-allowed font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors"
+                    title="Make text smaller (-10%)"
+                  >
+                    <ZoomOut class="w-3.5 h-3.5" />
+                    <span>Smaller</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onclick={reset_zoom}
+                    class="py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-oak border border-dry-stone font-semibold text-xs flex items-center justify-center cursor-pointer transition-colors"
+                    title="Reset text size to 100% default"
+                  >
+                    <RotateCcw class="w-3.5 h-3.5" />
+                  </button>
+
+                  <button
+                    type="button"
+                    onclick={() => adjust_zoom(0.1)}
+                    disabled={zoom_scale >= 1.8}
+                    class="flex-1 py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-peat border border-dry-stone disabled:opacity-40 disabled:cursor-not-allowed font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors"
+                    title="Make text larger (+10%)"
+                  >
+                    <ZoomIn class="w-3.5 h-3.5" />
+                    <span>Larger</span>
+                  </button>
+                </div>
+
+                <!-- Continuous Slider with mathematically accurate percentage tick alignment -->
+                <div class="space-y-1">
+                  <div class="relative w-full h-3.5 text-[11px] text-oak font-semibold">
+                    <span class="absolute left-0">80%</span>
+                    <span class="absolute left-[20%] -translate-x-1/2">100%</span>
+                    <span class="absolute left-[60%] -translate-x-1/2">140%</span>
+                    <span class="absolute right-0">180%</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0.8"
+                    max="1.8"
+                    step="0.05"
+                    value={zoom_scale}
+                    oninput={(e) => apply_zoom(parseFloat(e.currentTarget.value))}
+                    class="w-full accent-hedgerow cursor-pointer"
+                  />
+                </div>
+
+                <p class="text-[11px] text-oak leading-tight m-0">
+                  Saves automatically on this device.
+                </p>
+              </div>
+            {/if}
+          </div>
+        {/snippet}
+
         {#if active_view === 'onboarding'}
-          <!-- Setup Mode Header: Only Open button -->
+          <!-- Setup Mode Header: Open button & Text Size Zoom -->
           <button
             onclick={on_open_file}
             class="px-3 py-1.5 rounded-lg bg-cast-iron-light hover:bg-cast-iron-light/80 text-trough hover:text-white border border-galvanised/40 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
@@ -156,6 +303,8 @@
             <FolderOpen class="w-3.5 h-3.5" />
             <span>Open Existing File</span>
           </button>
+
+          {@render zoom_control()}
         {:else}
           <!-- Standard Workspace Header Controls -->
           <div class="bg-cast-iron-dark p-0.5 rounded-lg flex items-center border border-galvanised/30 text-xs">
@@ -205,97 +354,7 @@
             </button>
 
             <!-- Text Size Zoom Control -->
-            <div class="relative flex items-center">
-              <button
-                type="button"
-                onclick={() => (is_zoom_menu_open = !is_zoom_menu_open)}
-                class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer {is_zoom_menu_open
-                  ? 'bg-cast-iron-light text-white border-buttercup'
-                  : 'bg-cast-iron-light/40 hover:bg-cast-iron-light text-trough hover:text-white border-galvanised/30'}"
-                title="Adjust text size for easier reading"
-                aria-expanded={is_zoom_menu_open}
-              >
-                <span class="font-display font-bold text-sm leading-none text-buttercup">A</span>
-                <span class="hidden xl:inline text-xs">{Math.round(zoom_scale * 100)}%</span>
-              </button>
-
-              {#if is_zoom_menu_open}
-                <!-- Backdrop to dismiss -->
-                <button
-                  type="button"
-                  tabindex="-1"
-                  onclick={() => (is_zoom_menu_open = false)}
-                  class="fixed inset-0 z-40 cursor-default bg-transparent"
-                  aria-label="Close zoom menu"
-                ></button>
-
-                <!-- Zoom Controls Dropdown -->
-                <div class="absolute right-0 top-full mt-2 z-50 w-64 p-3.5 bg-warm-milk text-peat rounded-xl shadow-xl border-2 border-dry-stone space-y-3 animate-in fade-in zoom-in-95 duration-100">
-                  <div class="flex items-center justify-between pb-2 border-b border-dry-stone">
-                    <span class="font-display font-bold text-sm text-hedgerow">Text Size</span>
-                    <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-hedgerow-leaf/15 text-hedgerow">
-                      {Math.round(zoom_scale * 100)}%
-                    </span>
-                  </div>
-
-                  <!-- Quick Steppers -->
-                  <div class="flex items-center gap-1.5 justify-between">
-                    <button
-                      type="button"
-                      onclick={() => adjust_zoom(-0.05)}
-                      disabled={zoom_scale <= 0.9}
-                      class="flex-1 py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-peat border border-dry-stone disabled:opacity-40 disabled:cursor-not-allowed font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors"
-                      title="Make text smaller"
-                    >
-                      <ZoomOut class="w-3.5 h-3.5" />
-                      <span>Smaller</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onclick={reset_zoom}
-                      class="py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-oak border border-dry-stone font-semibold text-xs flex items-center justify-center cursor-pointer transition-colors"
-                      title="Reset text size to 110%"
-                    >
-                      <RotateCcw class="w-3.5 h-3.5" />
-                    </button>
-
-                    <button
-                      type="button"
-                      onclick={() => adjust_zoom(0.05)}
-                      disabled={zoom_scale >= 1.4}
-                      class="flex-1 py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-peat border border-dry-stone disabled:opacity-40 disabled:cursor-not-allowed font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors"
-                      title="Make text larger"
-                    >
-                      <ZoomIn class="w-3.5 h-3.5" />
-                      <span>Larger</span>
-                    </button>
-                  </div>
-
-                  <!-- Continuous Slider -->
-                  <div class="space-y-1">
-                    <div class="flex justify-between text-[11px] text-oak font-semibold">
-                      <span>90%</span>
-                      <span>Normal</span>
-                      <span>140%</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="0.9"
-                      max="1.4"
-                      step="0.05"
-                      value={zoom_scale}
-                      oninput={(e) => apply_zoom(parseFloat(e.currentTarget.value))}
-                      class="w-full accent-hedgerow cursor-pointer"
-                    />
-                  </div>
-
-                  <p class="text-[11px] text-oak leading-tight m-0">
-                    Saves automatically on this device.
-                  </p>
-                </div>
-              {/if}
-            </div>
+            {@render zoom_control()}
 
             <button
               onclick={on_open_tour}

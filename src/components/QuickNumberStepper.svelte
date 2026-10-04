@@ -46,16 +46,11 @@
 
   function handle_focus(e: FocusEvent) {
     const target = e.target as HTMLInputElement;
+    // Auto-select text on click/tap so user doesn't have to backspace existing 0
     target.select();
   }
 
   function handle_keydown(e: KeyboardEvent) {
-    // Block exponential notation, signs, and decimals
-    if (['e', 'E', '+', '-', '.'].includes(e.key)) {
-      e.preventDefault();
-      return;
-    }
-
     if (e.key === 'Enter') {
       e.preventDefault();
       if (on_enter_next) {
@@ -72,26 +67,11 @@
 
   function handle_input(e: Event) {
     const target = e.target as HTMLInputElement;
-    // Strip any stray non-digit characters that might get pasted or entered
-    const digits_only = target.value.replace(/[^0-9]/g, '');
-    if (digits_only !== target.value) {
-      target.value = digits_only;
-    }
-
-    if (digits_only === '') {
+    const raw = target.value.trim();
+    if (raw === '') {
       update_value(0);
     } else {
-      update_value(parseInt(digits_only, 10));
-    }
-  }
-
-  function handle_paste(e: ClipboardEvent) {
-    const paste_data = e.clipboardData?.getData('text') || '';
-    if (!/^\d+$/.test(paste_data.trim())) {
-      e.preventDefault();
-      const sanitized = paste_data.replace(/[^0-9]/g, '');
-      const parsed = parseInt(sanitized, 10);
-      update_value(isNaN(parsed) ? 0 : parsed);
+      update_value(parseInt(raw, 10));
     }
   }
 </script>
@@ -125,14 +105,12 @@
     <!-- Number Input with auto-select on focus & Enter to advance -->
     <input
       {id}
-      type="text"
-      inputmode="numeric"
-      pattern="[0-9]*"
+      type="number"
+      {min}
       value={value}
       onfocus={handle_focus}
       onkeydown={handle_keydown}
       oninput={handle_input}
-      onpaste={handle_paste}
       class="w-20 text-center py-1.5 px-1 font-mono font-bold text-sm text-cast-iron bg-transparent border-0 focus:ring-0 focus:outline-hidden"
     />
 
