@@ -436,7 +436,7 @@
 />
 
 <!-- Main App Layout -->
-<div class="min-h-screen flex flex-col bg-chalk text-cast-iron">
+<div class="min-h-screen flex flex-col bg-canvas text-primary">
   <HeaderNavbar
     farm={data.farm}
     {filename}
@@ -487,30 +487,30 @@
       {#if active_view === 'editor'}
         <!-- Mode Switcher Pill (Guided Flow vs Spreadsheet View) -->
         <div class="mb-4 flex items-center justify-between no-print">
-          <div class="inline-flex p-1 bg-white border border-trough rounded-xl shadow-2xs">
+          <div class="inline-flex p-1 bg-white border border-border rounded-xl shadow-2xs">
             <button
               type="button"
               onclick={() => (editor_mode = 'guided')}
               class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer {editor_mode === 'guided'
-                ? 'bg-cast-iron text-white shadow-2xs'
-                : 'text-galvanised hover:text-cast-iron hover:bg-chalk'}"
+                ? 'bg-primary text-white shadow-2xs'
+                : 'text-text-muted hover:text-primary hover:bg-canvas'}"
             >
-              <ListFilter class="w-3.5 h-3.5 {editor_mode === 'guided' ? 'text-ear-tag' : ''}" />
+              <ListFilter class="w-3.5 h-3.5 {editor_mode === 'guided' ? 'text-accent' : ''}" />
               <span>Guided Entry (Step-by-Step)</span>
             </button>
             <button
               type="button"
               onclick={() => (editor_mode = 'spreadsheet')}
               class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer {editor_mode === 'spreadsheet'
-                ? 'bg-cast-iron text-white shadow-2xs'
-                : 'text-galvanised hover:text-cast-iron hover:bg-chalk'}"
+                ? 'bg-primary text-white shadow-2xs'
+                : 'text-text-muted hover:text-primary hover:bg-canvas'}"
             >
-              <TableProperties class="w-3.5 h-3.5 {editor_mode === 'spreadsheet' ? 'text-ear-tag' : ''}" />
+              <TableProperties class="w-3.5 h-3.5 {editor_mode === 'spreadsheet' ? 'text-accent' : ''}" />
               <span>Spreadsheet View (All Numbers)</span>
             </button>
           </div>
 
-          <span class="text-xs text-galvanised hidden sm:inline">
+          <span class="text-xs text-text-muted hidden sm:inline">
             {editor_mode === 'guided' ? 'Simplified question-by-question entry' : 'Complete multi-column schedule'}
           </span>
         </div>
@@ -547,10 +547,10 @@
   </main>
 
   <!-- Application Footer (Buy Me a Coffee & Rural Identity, hidden during print) -->
-  <footer class="mt-auto border-t border-dry-stone/70 bg-warm-milk/80 py-5 text-xs text-peat no-print">
+  <footer class="mt-auto border-t border-border/70 bg-surface/80 py-5 text-xs text-text no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2 text-oak text-center sm:text-left">
-        <span class="font-display font-bold text-hedgerow text-sm">{BRAND.name}</span>
+      <div class="flex items-center gap-2 text-text-muted text-center sm:text-left">
+        <span class="font-display font-bold text-primary text-sm">{BRAND.name}</span>
         <span>•</span>
         <span>Free, zero-backend, privacy-first livestock reconciliation for British farming.</span>
       </div>
@@ -558,10 +558,10 @@
         href="https://buymeacoffee.com/iainwhite"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-ear-tag hover:bg-ear-tag-hover text-peat font-semibold border border-buttercup-border transition-colors shadow-2xs cursor-pointer"
+        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-accent hover:bg-accent-hover text-text font-semibold border border-accent-border transition-colors shadow-2xs cursor-pointer"
         title="Support Stocktaker development on Buy Me a Coffee"
       >
-        <Coffee class="w-4 h-4 text-peat" />
+        <Coffee class="w-4 h-4 text-text" />
         <span>Buy me a coffee</span>
       </a>
     </div>

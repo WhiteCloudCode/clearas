@@ -87,41 +87,41 @@
   });
 </script>
 
-<header class="bg-cast-iron text-white border-b border-cast-iron-light shadow-md no-print">
+<header class="bg-primary text-white border-b border-primary-light shadow-md no-print">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between min-h-16 py-2 gap-3 flex-wrap sm:flex-nowrap">
       <!-- Brand & Farm Title -->
       <div class="flex items-center gap-4 min-w-0">
         <div class="flex items-center gap-2">
-          <div class="w-9 h-9 rounded-lg bg-cast-iron-dark border border-galvanised/40 flex items-center justify-center font-bold font-mono text-ear-tag shadow-inner text-sm">
+          <div class="w-9 h-9 rounded-lg bg-primary-dark border border-text-muted/40 flex items-center justify-center font-bold font-mono text-accent shadow-inner text-sm">
             {BRAND.initials}
           </div>
           <div>
             <div class="flex items-center gap-2">
               <span class="font-bold text-base tracking-wider uppercase text-white font-display">{BRAND.name}</span>
-              <span class="text-[10px] uppercase font-semibold bg-cast-iron-light text-galvanised-light px-1.5 py-0.5 rounded tracking-wide border border-galvanised/30 font-mono">
+              <span class="text-[10px] uppercase font-semibold bg-primary-light text-text-subtle px-1.5 py-0.5 rounded tracking-wide border border-text-muted/30 font-mono">
                 Livestock
               </span>
             </div>
-            <p class="text-xs text-galvanised-light hidden sm:block">{BRAND.subtitle}</p>
+            <p class="text-xs text-text-subtle hidden sm:block">{BRAND.subtitle}</p>
           </div>
         </div>
 
         {#if active_view !== 'onboarding'}
-          <div class="h-8 w-px bg-galvanised/30 hidden md:block"></div>
+          <div class="h-8 w-px bg-text-muted/30 hidden md:block"></div>
 
           <!-- Farm details pill -->
           <button
             onclick={on_open_farm_modal}
-            class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cast-iron-light/60 hover:bg-cast-iron-light text-left border border-galvanised/30 transition-colors group cursor-pointer"
+            class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary-light/60 hover:bg-primary-light text-left border border-text-muted/30 transition-colors group cursor-pointer"
             title="Click to edit farm name & holding details"
           >
             <div>
-              <div class="text-xs font-semibold text-trough flex items-center gap-1 group-hover:text-white">
+              <div class="text-xs font-semibold text-border flex items-center gap-1 group-hover:text-white">
                 {farm.farm_name || 'Unnamed Farm'}
-                <Edit3 class="w-3 h-3 text-galvanised-light group-hover:text-trough" />
+                <Edit3 class="w-3 h-3 text-text-subtle group-hover:text-border" />
               </div>
-              <div class="text-[11px] text-galvanised-light font-mono">
+              <div class="text-[11px] text-text-subtle font-mono">
                 CPH: {farm.cph_number || 'Not specified'}
               </div>
             </div>
@@ -132,13 +132,13 @@
       <!-- File Status Badge (Hidden during onboarding) -->
       {#if active_view !== 'onboarding'}
         <div class="hidden xl:flex items-center gap-2 text-xs">
-          <div class="px-2.5 py-1 rounded-full bg-cast-iron-light/70 border border-galvanised/30 flex items-center gap-1.5 text-galvanised-light font-mono">
-            <span class="w-2 h-2 rounded-full {is_dirty ? 'bg-ear-tag animate-pulse' : 'bg-yard-green'}"></span>
+          <div class="px-2.5 py-1 rounded-full bg-primary-light/70 border border-text-muted/30 flex items-center gap-1.5 text-text-subtle font-mono">
+            <span class="w-2 h-2 rounded-full {is_dirty ? 'bg-accent animate-pulse' : 'bg-success'}"></span>
             <span>{filename ? filename : 'Local Auto-Save'}</span>
             {#if is_dirty}
-              <span class="text-[10px] text-ear-tag font-sans font-medium">(Unsaved)</span>
+              <span class="text-[10px] text-accent font-sans font-medium">(Unsaved)</span>
             {:else}
-              <Check class="w-3 h-3 text-yard-green" />
+              <Check class="w-3 h-3 text-success" />
             {/if}
           </div>
         </div>
@@ -152,14 +152,14 @@
               type="button"
               onclick={() => (is_zoom_menu_open = !is_zoom_menu_open)}
               class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer {is_zoom_menu_open
-                ? 'bg-cast-iron-light text-white border-buttercup'
+                ? 'bg-primary-light text-white border-accent'
                 : active_view === 'onboarding'
-                  ? 'bg-cast-iron-light text-white border-ear-tag ring-2 ring-ear-tag ring-offset-2 ring-offset-cast-iron shadow-sm animate-pulse'
-                  : 'bg-cast-iron-light/40 hover:bg-cast-iron-light text-trough hover:text-white border-galvanised/30'}"
+                  ? 'bg-primary-light text-white border-accent ring-2 ring-accent ring-offset-2 ring-offset-primary shadow-sm animate-pulse'
+                  : 'bg-primary-light/40 hover:bg-primary-light text-border hover:text-white border-text-muted/30'}"
               title={active_view === 'onboarding' ? 'Adjust text size (default 100%)' : 'Adjust text size for easier reading'}
               aria-expanded={is_zoom_menu_open}
             >
-              <span class="font-display font-bold text-sm leading-none text-buttercup">A</span>
+              <span class="font-display font-bold text-sm leading-none text-accent">A</span>
               <span class="{active_view === 'onboarding' ? 'inline' : 'hidden xl:inline'} text-xs">{Math.round(zoom_scale * 100)}%</span>
             </button>
 
@@ -174,27 +174,27 @@
               ></button>
 
               <!-- Zoom Controls Dropdown -->
-              <div class="absolute right-0 top-full mt-2 z-50 w-72 max-w-[calc(100vw-2rem)] max-h-[85vh] overflow-y-auto p-3.5 bg-warm-milk text-peat rounded-xl shadow-xl border-2 border-dry-stone space-y-3 animate-in fade-in zoom-in-95 duration-100">
-                <div class="flex items-center justify-between pb-2 border-b border-dry-stone">
-                  <span class="font-display font-bold text-sm text-hedgerow">Text Size</span>
-                  <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-hedgerow-leaf/15 text-hedgerow font-mono">
+              <div class="absolute right-0 top-full mt-2 z-50 w-72 max-w-[calc(100vw-2rem)] max-h-[85vh] overflow-y-auto p-3.5 bg-surface text-text rounded-xl shadow-xl border-2 border-border space-y-3 animate-in fade-in zoom-in-95 duration-100">
+                <div class="flex items-center justify-between pb-2 border-b border-border">
+                  <span class="font-display font-bold text-sm text-primary">Text Size</span>
+                  <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-primary-light/15 text-primary font-mono">
                     {Math.round(zoom_scale * 100)}%
                   </span>
                 </div>
 
                 <!-- Quick Jump Presets -->
                 <div class="space-y-1">
-                  <div class="flex items-center justify-between text-[11px] text-oak font-semibold">
+                  <div class="flex items-center justify-between text-[11px] text-text-muted font-semibold">
                     <span>Quick Jump</span>
-                    <span class="text-[10px] text-oak/80">80% &ndash; 180%</span>
+                    <span class="text-[10px] text-text-muted/80">80% &ndash; 180%</span>
                   </div>
                   <div class="grid grid-cols-4 gap-1">
                     <button
                       type="button"
                       onclick={() => apply_zoom(0.8)}
                       class="py-1 px-1 rounded text-xs font-bold border transition-colors cursor-pointer text-center {Math.round(zoom_scale * 100) === 80
-                        ? 'bg-hedgerow text-white border-hedgerow shadow-2xs'
-                        : 'bg-parchment hover:bg-dry-stone text-peat border-dry-stone'}"
+                        ? 'bg-primary text-white border-primary shadow-2xs'
+                        : 'bg-canvas hover:bg-border text-text border-border'}"
                       title="Set text size to 80%"
                     >
                       80%
@@ -203,8 +203,8 @@
                       type="button"
                       onclick={() => apply_zoom(1.0)}
                       class="py-1 px-1 rounded text-xs font-bold border transition-colors cursor-pointer text-center {Math.round(zoom_scale * 100) === 100
-                        ? 'bg-hedgerow text-white border-hedgerow shadow-2xs'
-                        : 'bg-parchment hover:bg-dry-stone text-peat border-dry-stone'}"
+                        ? 'bg-primary text-white border-primary shadow-2xs'
+                        : 'bg-canvas hover:bg-border text-text border-border'}"
                       title="Set text size to default 100%"
                     >
                       100%
@@ -213,8 +213,8 @@
                       type="button"
                       onclick={() => apply_zoom(1.4)}
                       class="py-1 px-1 rounded text-xs font-bold border transition-colors cursor-pointer text-center {Math.round(zoom_scale * 100) === 140
-                        ? 'bg-hedgerow text-white border-hedgerow shadow-2xs'
-                        : 'bg-parchment hover:bg-dry-stone text-peat border-dry-stone'}"
+                        ? 'bg-primary text-white border-primary shadow-2xs'
+                        : 'bg-canvas hover:bg-border text-text border-border'}"
                       title="Set text size to 140%"
                     >
                       140%
@@ -223,8 +223,8 @@
                       type="button"
                       onclick={() => apply_zoom(1.8)}
                       class="py-1 px-1 rounded text-xs font-bold border transition-colors cursor-pointer text-center {Math.round(zoom_scale * 100) === 180
-                        ? 'bg-hedgerow text-white border-hedgerow shadow-2xs'
-                        : 'bg-parchment hover:bg-dry-stone text-peat border-dry-stone'}"
+                        ? 'bg-primary text-white border-primary shadow-2xs'
+                        : 'bg-canvas hover:bg-border text-text border-border'}"
                       title="Set text size to 180%"
                     >
                       180%
@@ -238,7 +238,7 @@
                     type="button"
                     onclick={() => adjust_zoom(-0.1)}
                     disabled={zoom_scale <= 0.8}
-                    class="flex-1 py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-peat border border-dry-stone disabled:opacity-40 disabled:cursor-not-allowed font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors"
+                    class="flex-1 py-1.5 px-2 rounded-lg bg-canvas hover:bg-border text-text border border-border disabled:opacity-40 disabled:cursor-not-allowed font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors"
                     title="Make text smaller (-10%)"
                   >
                     <ZoomOut class="w-3.5 h-3.5" />
@@ -248,7 +248,7 @@
                   <button
                     type="button"
                     onclick={reset_zoom}
-                    class="py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-oak border border-dry-stone font-semibold text-xs flex items-center justify-center cursor-pointer transition-colors"
+                    class="py-1.5 px-2 rounded-lg bg-canvas hover:bg-border text-text-muted border border-border font-semibold text-xs flex items-center justify-center cursor-pointer transition-colors"
                     title="Reset text size to 100% default"
                   >
                     <RotateCcw class="w-3.5 h-3.5" />
@@ -258,7 +258,7 @@
                     type="button"
                     onclick={() => adjust_zoom(0.1)}
                     disabled={zoom_scale >= 1.8}
-                    class="flex-1 py-1.5 px-2 rounded-lg bg-parchment hover:bg-dry-stone text-peat border border-dry-stone disabled:opacity-40 disabled:cursor-not-allowed font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors"
+                    class="flex-1 py-1.5 px-2 rounded-lg bg-canvas hover:bg-border text-text border border-border disabled:opacity-40 disabled:cursor-not-allowed font-bold text-xs flex items-center justify-center gap-1 cursor-pointer transition-colors"
                     title="Make text larger (+10%)"
                   >
                     <ZoomIn class="w-3.5 h-3.5" />
@@ -268,7 +268,7 @@
 
                 <!-- Continuous Slider with mathematically accurate percentage tick alignment -->
                 <div class="space-y-1">
-                  <div class="relative w-full h-3.5 text-[11px] text-oak font-semibold">
+                  <div class="relative w-full h-3.5 text-[11px] text-text-muted font-semibold">
                     <span class="absolute left-0">80%</span>
                     <span class="absolute left-[20%] -translate-x-1/2">100%</span>
                     <span class="absolute left-[60%] -translate-x-1/2">140%</span>
@@ -281,11 +281,11 @@
                     step="0.05"
                     value={zoom_scale}
                     oninput={(e) => apply_zoom(parseFloat(e.currentTarget.value))}
-                    class="w-full accent-hedgerow cursor-pointer"
+                    class="w-full accent-primary cursor-pointer"
                   />
                 </div>
 
-                <p class="text-[11px] text-oak leading-tight m-0">
+                <p class="text-[11px] text-text-muted leading-tight m-0">
                   Saves automatically on this device.
                 </p>
               </div>
@@ -297,7 +297,7 @@
           <!-- Setup Mode Header: Open button & Text Size Zoom -->
           <button
             onclick={on_open_file}
-            class="px-3 py-1.5 rounded-lg bg-cast-iron-light hover:bg-cast-iron-light/80 text-trough hover:text-white border border-galvanised/40 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+            class="px-3 py-1.5 rounded-lg bg-primary-light hover:bg-primary-light/80 text-border hover:text-white border border-text-muted/40 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
             title={`Open an existing ${BRAND.name} file (${BRAND.file_extension}, .json)`}
           >
             <FolderOpen class="w-3.5 h-3.5" />
@@ -307,17 +307,17 @@
           {@render zoom_control()}
         {:else}
           <!-- Standard Workspace Header Controls -->
-          <div class="bg-cast-iron-dark p-0.5 rounded-lg flex items-center border border-galvanised/30 text-xs">
+          <div class="bg-primary-dark p-0.5 rounded-lg flex items-center border border-text-muted/30 text-xs">
             <button
               onclick={() => on_toggle_view('editor')}
-              class="px-2.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium transition-all {active_view === 'editor' ? 'bg-galvanised-dark text-white shadow-xs' : 'text-galvanised-light hover:text-white'}"
+              class="px-2.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium transition-all {active_view === 'editor' ? 'bg-primary-light text-white shadow-xs' : 'text-text-subtle hover:text-white'}"
             >
               <FileSpreadsheet class="w-3.5 h-3.5" />
               <span class="hidden sm:inline">Livestock Numbers</span>
             </button>
             <button
               onclick={() => on_toggle_view('report')}
-              class="px-2.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium transition-all {active_view === 'report' ? 'bg-galvanised-dark text-white shadow-xs' : 'text-galvanised-light hover:text-white'}"
+              class="px-2.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium transition-all {active_view === 'report' ? 'bg-primary-light text-white shadow-xs' : 'text-text-subtle hover:text-white'}"
             >
               <FileText class="w-3.5 h-3.5" />
               <span class="hidden sm:inline">Accountant Report</span>
@@ -325,10 +325,10 @@
           </div>
 
           <!-- File Storage Buttons -->
-          <div class="flex items-center gap-1 pl-2 border-l border-cast-iron-light">
+          <div class="flex items-center gap-1 pl-2 border-l border-primary-light">
             <button
               onclick={on_open_file}
-              class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg bg-cast-iron-light/70 hover:bg-cast-iron-light text-trough hover:text-white border border-galvanised/30 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+              class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg bg-primary-light/70 hover:bg-primary-light text-border hover:text-white border border-text-muted/30 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
               title={`Open an existing ${BRAND.name} file (${BRAND.file_extension}, .json)`}
             >
               <FolderOpen class="w-3.5 h-3.5" />
@@ -337,16 +337,16 @@
 
             <button
               onclick={on_save_file}
-              class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-ear-tag hover:bg-ear-tag-hover text-peat text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer border border-buttercup-border"
+              class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-accent hover:bg-accent-hover text-text text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer border border-accent-border"
               title="Save your farm file (Ctrl+S)"
             >
-              <Save class="w-3.5 h-3.5 text-peat" />
+              <Save class="w-3.5 h-3.5 text-text" />
               <span class="hidden sm:inline">Save</span>
             </button>
 
             <button
               onclick={on_save_file_as}
-              class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg bg-cast-iron-light/70 hover:bg-cast-iron-light text-trough hover:text-white border border-galvanised/30 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
+              class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg bg-primary-light/70 hover:bg-primary-light text-border hover:text-white border border-text-muted/30 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
               title="Save a copy of your farm file"
             >
               <Download class="w-3.5 h-3.5" />
@@ -358,7 +358,7 @@
 
             <button
               onclick={on_open_tour}
-              class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg border text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer bg-cast-iron-light/40 hover:bg-cast-iron-light text-galvanised-light hover:text-white border-galvanised/30"
+              class="p-2 sm:px-2.5 sm:py-1.5 rounded-lg border text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer bg-primary-light/40 hover:bg-primary-light text-text-subtle hover:text-white border-text-muted/30"
               title="Help & Farm Setup Guide"
             >
               <HelpCircle class="w-3.5 h-3.5" />
@@ -367,7 +367,7 @@
 
             <button
               onclick={on_new_farm}
-              class="p-2 rounded-lg bg-cast-iron-light/40 hover:bg-cast-iron-light text-galvanised-light hover:text-white border border-galvanised/30 transition-colors cursor-pointer"
+              class="p-2 rounded-lg bg-primary-light/40 hover:bg-primary-light text-text-subtle hover:text-white border border-text-muted/30 transition-colors cursor-pointer"
               title="Start a new farm"
             >
               <FilePlus class="w-3.5 h-3.5" />

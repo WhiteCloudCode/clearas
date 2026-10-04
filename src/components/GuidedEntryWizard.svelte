@@ -141,20 +141,20 @@
   }
 </script>
 
-<div class="bg-white rounded-xl shadow-xs border border-trough overflow-hidden mb-6 no-print">
+<div class="bg-white rounded-xl shadow-xs border border-border overflow-hidden mb-6 no-print">
   <!-- Wizard Header & Progress Bar -->
-  <div class="p-6 border-b border-trough bg-chalk/60">
+  <div class="p-6 border-b border-border bg-canvas/60">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
       <div>
         <div class="flex items-center gap-2">
-          <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-ear-tag/15 text-ear-tag font-display">
+          <span class="px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider bg-accent/15 text-accent font-display">
             Step {current_step_index + 1} of {STEPS.length}
           </span>
-          <h2 class="text-lg font-bold text-cast-iron font-display tracking-tight">
+          <h2 class="text-lg font-bold text-primary font-display tracking-tight">
             {active_step.title}
           </h2>
         </div>
-        <p class="text-xs text-galvanised mt-1">
+        <p class="text-xs text-text-muted mt-1">
           {active_step.subtitle}
         </p>
       </div>
@@ -163,7 +163,7 @@
         <button
           type="button"
           onclick={on_switch_to_spreadsheet}
-          class="px-3 py-1.5 rounded-lg border border-trough bg-white hover:bg-trough text-cast-iron text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+          class="px-3 py-1.5 rounded-lg border border-border bg-white hover:bg-border text-primary text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
           title="Switch to detailed full-width spreadsheet view"
         >
           <span>Spreadsheet View</span>
@@ -179,13 +179,13 @@
           type="button"
           onclick={() => jump_to_step(idx)}
           class="flex flex-col items-center p-2 rounded-lg text-left transition-all cursor-pointer border {current_step_index === idx
-            ? 'bg-cast-iron text-white border-cast-iron shadow-2xs'
+            ? 'bg-primary text-white border-primary shadow-2xs'
             : current_step_index > idx
-            ? 'bg-yard-green-light/40 border-yard-green-border text-cast-iron hover:bg-yard-green-light'
-            : 'bg-white border-trough text-galvanised hover:border-galvanised-light'}"
+            ? 'bg-success-light/40 border-success-border text-primary hover:bg-success-light'
+            : 'bg-white border-border text-text-muted hover:border-text-subtle'}"
         >
           <div class="flex items-center gap-1">
-            <Icon class="w-3.5 h-3.5 {current_step_index === idx ? 'text-ear-tag' : current_step_index > idx ? 'text-yard-green' : 'text-galvanised'}" />
+            <Icon class="w-3.5 h-3.5 {current_step_index === idx ? 'text-accent' : current_step_index > idx ? 'text-success' : 'text-text-muted'}" />
             <span class="text-[11px] font-semibold font-display truncate">{idx + 1}. {step.title.split('. ')[1] || step.title}</span>
           </div>
         </button>
@@ -193,9 +193,9 @@
     </div>
 
     <!-- Friendly Speed Hint for Keyboard & Touch -->
-    <div class="mt-3 flex items-center justify-between text-[11px] text-galvanised bg-white/70 px-3 py-1.5 rounded-lg border border-trough/60">
+    <div class="mt-3 flex items-center justify-between text-[11px] text-text-muted bg-white/70 px-3 py-1.5 rounded-lg border border-border/60">
       <span class="flex items-center gap-1">
-        <kbd class="px-1.5 py-0.5 rounded bg-chalk border border-trough font-mono text-[10px] text-cast-iron font-bold">Enter</kbd>
+        <kbd class="px-1.5 py-0.5 rounded bg-canvas border border-border font-mono text-[10px] text-primary font-bold">Enter</kbd>
         moves to next row
       </span>
       <span>Tap <strong>0 / None</strong> or use <strong>+ / &minus;</strong> for quick entry</span>
@@ -207,9 +207,9 @@
     <!-- STEP 1: OPENING STOCK -->
     {#if active_step.id === 'opening'}
       <div class="max-w-3xl mx-auto space-y-6">
-        <div class="p-4 rounded-xl bg-chalk border border-trough text-xs text-galvanised space-y-1">
-          <p class="font-semibold text-cast-iron flex items-center gap-1.5">
-            <Info class="w-4 h-4 text-ear-tag" />
+        <div class="p-4 rounded-xl bg-canvas border border-border text-xs text-text-muted space-y-1">
+          <p class="font-semibold text-primary flex items-center gap-1.5">
+            <Info class="w-4 h-4 text-accent" />
             Check your starting numbers
           </p>
           <p>
@@ -218,14 +218,14 @@
         </div>
 
         <div class="space-y-4">
-          <div class="border border-trough rounded-xl overflow-hidden divide-y divide-trough">
-            <div class="bg-chalk px-4 py-2 font-bold text-xs uppercase font-display text-cast-iron flex items-center gap-1.5">
-              <Shield class="w-3.5 h-3.5 text-galvanised" />
+          <div class="border border-border rounded-xl overflow-hidden divide-y divide-border">
+            <div class="bg-canvas px-4 py-2 font-bold text-xs uppercase font-display text-primary flex items-center gap-1.5">
+              <Shield class="w-3.5 h-3.5 text-text-muted" />
               Breeding Herd (Capital Stock)
             </div>
             {#each breeding_categories as category, idx}
-              <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-chalk/40 transition-colors">
-                <span class="text-xs font-semibold text-cast-iron">{category.name}</span>
+              <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-canvas/40 transition-colors">
+                <span class="text-xs font-semibold text-primary">{category.name}</span>
                 <div data-step="opening" data-idx={idx}>
                   <QuickNumberStepper
                     bind:value={category.opening_stock}
@@ -236,15 +236,15 @@
             {/each}
           </div>
 
-          <div class="border border-trough rounded-xl overflow-hidden divide-y divide-trough">
-            <div class="bg-chalk px-4 py-2 font-bold text-xs uppercase font-display text-cast-iron flex items-center gap-1.5">
-              <TrendingUp class="w-3.5 h-3.5 text-galvanised" />
+          <div class="border border-border rounded-xl overflow-hidden divide-y divide-border">
+            <div class="bg-canvas px-4 py-2 font-bold text-xs uppercase font-display text-primary flex items-center gap-1.5">
+              <TrendingUp class="w-3.5 h-3.5 text-text-muted" />
               Trading Cattle (Commercial Stock)
             </div>
             {#each trading_categories as category, idx}
               {@const overall_idx = breeding_categories.length + idx}
-              <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-chalk/40 transition-colors">
-                <span class="text-xs font-semibold text-cast-iron">{category.name}</span>
+              <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-canvas/40 transition-colors">
+                <span class="text-xs font-semibold text-primary">{category.name}</span>
                 <div data-step="opening" data-idx={overall_idx}>
                   <QuickNumberStepper
                     bind:value={category.opening_stock}
@@ -260,9 +260,9 @@
     <!-- STEP 2: BIRTHS -->
     {:else if active_step.id === 'births'}
       <div class="max-w-3xl mx-auto space-y-6">
-        <div class="p-4 rounded-xl bg-chalk border border-trough text-xs text-galvanised space-y-1">
-          <p class="font-semibold text-cast-iron flex items-center gap-1.5">
-            <Baby class="w-4 h-4 text-ear-tag" />
+        <div class="p-4 rounded-xl bg-canvas border border-border text-xs text-text-muted space-y-1">
+          <p class="font-semibold text-primary flex items-center gap-1.5">
+            <Baby class="w-4 h-4 text-accent" />
             Calves born during this period
           </p>
           <p>
@@ -270,12 +270,12 @@
           </p>
         </div>
 
-        <div class="border border-trough rounded-xl overflow-hidden divide-y divide-trough">
+        <div class="border border-border rounded-xl overflow-hidden divide-y divide-border">
           {#each period.categories as category, idx}
-            <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-chalk/40 transition-colors">
+            <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-canvas/40 transition-colors">
               <div>
-                <span class="text-xs font-semibold text-cast-iron">{category.name}</span>
-                <span class="block text-[11px] text-galvanised capitalize">{category.classification.replace('_', ' ')}</span>
+                <span class="text-xs font-semibold text-primary">{category.name}</span>
+                <span class="block text-[11px] text-text-muted capitalize">{category.classification.replace('_', ' ')}</span>
               </div>
               <div data-step="births" data-idx={idx}>
                 <QuickNumberStepper
@@ -291,7 +291,7 @@
           <button
             type="button"
             onclick={() => clear_step_field('births')}
-            class="text-xs text-galvanised hover:text-cast-iron underline cursor-pointer"
+            class="text-xs text-text-muted hover:text-primary underline cursor-pointer"
           >
             Clear all births to 0
           </button>
@@ -301,9 +301,9 @@
     <!-- STEP 3: PURCHASES -->
     {:else if active_step.id === 'purchases'}
       <div class="max-w-3xl mx-auto space-y-6">
-        <div class="p-4 rounded-xl bg-chalk border border-trough text-xs text-galvanised space-y-1">
-          <p class="font-semibold text-cast-iron flex items-center gap-1.5">
-            <ShoppingCart class="w-4 h-4 text-ear-tag" />
+        <div class="p-4 rounded-xl bg-canvas border border-border text-xs text-text-muted space-y-1">
+          <p class="font-semibold text-primary flex items-center gap-1.5">
+            <ShoppingCart class="w-4 h-4 text-accent" />
             Stock bought into the farm
           </p>
           <p>
@@ -311,12 +311,12 @@
           </p>
         </div>
 
-        <div class="border border-trough rounded-xl overflow-hidden divide-y divide-trough">
+        <div class="border border-border rounded-xl overflow-hidden divide-y divide-border">
           {#each period.categories as category, idx}
-            <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-chalk/40 transition-colors">
+            <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-canvas/40 transition-colors">
               <div>
-                <span class="text-xs font-semibold text-cast-iron">{category.name}</span>
-                <span class="block text-[11px] text-galvanised capitalize">{category.classification.replace('_', ' ')}</span>
+                <span class="text-xs font-semibold text-primary">{category.name}</span>
+                <span class="block text-[11px] text-text-muted capitalize">{category.classification.replace('_', ' ')}</span>
               </div>
               <div data-step="purchases" data-idx={idx}>
                 <QuickNumberStepper
@@ -332,7 +332,7 @@
           <button
             type="button"
             onclick={() => clear_step_field('purchases')}
-            class="text-xs text-galvanised hover:text-cast-iron underline cursor-pointer"
+            class="text-xs text-text-muted hover:text-primary underline cursor-pointer"
           >
             Clear all purchases to 0
           </button>
@@ -342,9 +342,9 @@
     <!-- STEP 4: SALES -->
     {:else if active_step.id === 'sales'}
       <div class="max-w-3xl mx-auto space-y-6">
-        <div class="p-4 rounded-xl bg-chalk border border-trough text-xs text-galvanised space-y-1">
-          <p class="font-semibold text-cast-iron flex items-center gap-1.5">
-            <TrendingDown class="w-4 h-4 text-ear-tag" />
+        <div class="p-4 rounded-xl bg-canvas border border-border text-xs text-text-muted space-y-1">
+          <p class="font-semibold text-primary flex items-center gap-1.5">
+            <TrendingDown class="w-4 h-4 text-accent" />
             Livestock sold during the period
           </p>
           <p>
@@ -352,12 +352,12 @@
           </p>
         </div>
 
-        <div class="border border-trough rounded-xl overflow-hidden divide-y divide-trough">
+        <div class="border border-border rounded-xl overflow-hidden divide-y divide-border">
           {#each period.categories as category, idx}
-            <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-chalk/40 transition-colors">
+            <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-canvas/40 transition-colors">
               <div>
-                <span class="text-xs font-semibold text-cast-iron">{category.name}</span>
-                <span class="block text-[11px] text-galvanised capitalize">{category.classification.replace('_', ' ')}</span>
+                <span class="text-xs font-semibold text-primary">{category.name}</span>
+                <span class="block text-[11px] text-text-muted capitalize">{category.classification.replace('_', ' ')}</span>
               </div>
               <div data-step="sales" data-idx={idx}>
                 <QuickNumberStepper
@@ -373,7 +373,7 @@
           <button
             type="button"
             onclick={() => clear_step_field('sales')}
-            class="text-xs text-galvanised hover:text-cast-iron underline cursor-pointer"
+            class="text-xs text-text-muted hover:text-primary underline cursor-pointer"
           >
             Clear all sales to 0
           </button>
@@ -383,9 +383,9 @@
     <!-- STEP 5: DEATHS & CASUALTIES (INTEGRATED) -->
     {:else if active_step.id === 'deaths'}
       <div class="max-w-3xl mx-auto space-y-6">
-        <div class="p-4 rounded-xl bg-chalk border border-trough text-xs text-galvanised space-y-1">
-          <p class="font-semibold text-cast-iron flex items-center gap-1.5">
-            <Skull class="w-4 h-4 text-ear-tag" />
+        <div class="p-4 rounded-xl bg-canvas border border-border text-xs text-text-muted space-y-1">
+          <p class="font-semibold text-primary flex items-center gap-1.5">
+            <Skull class="w-4 h-4 text-accent" />
             Casualties, On-Farm Deaths & Disease Removals
           </p>
           <p>
@@ -394,13 +394,13 @@
         </div>
 
         <!-- 1. Deaths per category -->
-        <div class="border border-trough rounded-xl overflow-hidden divide-y divide-trough">
-          <div class="bg-chalk px-4 py-2 font-bold text-xs uppercase font-display text-cast-iron">
+        <div class="border border-border rounded-xl overflow-hidden divide-y divide-border">
+          <div class="bg-canvas px-4 py-2 font-bold text-xs uppercase font-display text-primary">
             Deaths by Animal Category
           </div>
           {#each period.categories as category, idx}
-            <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-chalk/40 transition-colors">
-              <span class="text-xs font-semibold text-cast-iron">{category.name}</span>
+            <div class="p-3 sm:px-4 flex items-center justify-between gap-4 hover:bg-canvas/40 transition-colors">
+              <span class="text-xs font-semibold text-primary">{category.name}</span>
               <div data-step="deaths" data-idx={idx}>
                 <QuickNumberStepper
                   bind:value={category.deaths}
@@ -413,18 +413,18 @@
         </div>
 
         <!-- 2. Integrated HMRC Deaths Age Breakdown -->
-        <div class="p-4 rounded-xl border {deaths_check.is_matching ? 'bg-yard-green-light/20 border-yard-green-border' : 'bg-cull-red-light/20 border-cull-red-border'} space-y-4">
+        <div class="p-4 rounded-xl border {deaths_check.is_matching ? 'bg-success-light/20 border-success-border' : 'bg-danger-light/20 border-danger-border'} space-y-4">
           <div class="flex items-center justify-between">
             <div>
-              <h4 class="text-xs font-bold text-cast-iron font-display uppercase tracking-wide">
+              <h4 class="text-xs font-bold text-primary font-display uppercase tracking-wide">
                 HMRC Age Group Breakdown
               </h4>
-              <p class="text-[11px] text-galvanised">
+              <p class="text-[11px] text-text-muted">
                 Must equal total deaths above ({deaths_check.recorded_total} recorded).
               </p>
             </div>
             {#if deaths_check.is_matching}
-              <span class="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-yard-green-light text-yard-green font-semibold">
+              <span class="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full bg-success-light text-success font-semibold">
                 <CheckCircle2 class="w-3.5 h-3.5" />
                 Balanced ({deaths_check.recorded_total})
               </span>
@@ -432,7 +432,7 @@
               <button
                 type="button"
                 onclick={sync_deaths_breakdown_by_category}
-                class="px-2.5 py-1 rounded-lg bg-ear-tag hover:bg-ear-tag-hover text-white text-xs font-semibold cursor-pointer shadow-2xs"
+                class="px-2.5 py-1 rounded-lg bg-accent hover:bg-accent-hover text-white text-xs font-semibold cursor-pointer shadow-2xs"
               >
                 Auto-Align Breakdown
               </button>
@@ -441,7 +441,7 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
             <div>
-              <label for="step-calves-deaths" class="block text-[11px] font-semibold text-galvanised uppercase tracking-wider mb-1 font-display">
+              <label for="step-calves-deaths" class="block text-[11px] font-semibold text-text-muted uppercase tracking-wider mb-1 font-display">
                 Calves (&lt; 1 Yr)
               </label>
               <QuickNumberStepper
@@ -451,7 +451,7 @@
               />
             </div>
             <div>
-              <label for="step-yearlings-deaths" class="block text-[11px] font-semibold text-galvanised uppercase tracking-wider mb-1 font-display">
+              <label for="step-yearlings-deaths" class="block text-[11px] font-semibold text-text-muted uppercase tracking-wider mb-1 font-display">
                 Yearlings (1–2 Yrs)
               </label>
               <QuickNumberStepper
@@ -461,7 +461,7 @@
               />
             </div>
             <div>
-              <label for="step-mature-deaths" class="block text-[11px] font-semibold text-galvanised uppercase tracking-wider mb-1 font-display">
+              <label for="step-mature-deaths" class="block text-[11px] font-semibold text-text-muted uppercase tracking-wider mb-1 font-display">
                 Mature (&gt; 2 Yrs)
               </label>
               <QuickNumberStepper
@@ -471,7 +471,7 @@
               />
             </div>
             <div>
-              <label for="step-tb-deaths" class="block text-[11px] font-semibold text-galvanised uppercase tracking-wider mb-1 font-display">
+              <label for="step-tb-deaths" class="block text-[11px] font-semibold text-text-muted uppercase tracking-wider mb-1 font-display">
                 TB / Compulsory
               </label>
               <QuickNumberStepper
@@ -487,9 +487,9 @@
     <!-- STEP 6: TRANSFERS & OWN CONSUMPTION -->
     {:else if active_step.id === 'transfers'}
       <div class="max-w-3xl mx-auto space-y-6">
-        <div class="p-4 rounded-xl bg-chalk border border-trough text-xs text-galvanised space-y-1">
-          <p class="font-semibold text-cast-iron flex items-center gap-1.5">
-            <ArrowLeftRight class="w-4 h-4 text-ear-tag" />
+        <div class="p-4 rounded-xl bg-canvas border border-border text-xs text-text-muted space-y-1">
+          <p class="font-semibold text-primary flex items-center gap-1.5">
+            <ArrowLeftRight class="w-4 h-4 text-accent" />
             Internal Transfers & Home Consumption
           </p>
           <p>
@@ -497,27 +497,27 @@
           </p>
         </div>
 
-        <div class="border border-trough rounded-xl overflow-hidden divide-y divide-trough">
+        <div class="border border-border rounded-xl overflow-hidden divide-y divide-border">
           {#each period.categories as category}
-            <div class="p-3 sm:px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-chalk/40 transition-colors">
-              <span class="text-xs font-semibold text-cast-iron">{category.name}</span>
+            <div class="p-3 sm:px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-canvas/40 transition-colors">
+              <span class="text-xs font-semibold text-primary">{category.name}</span>
               <div class="flex items-center gap-4">
                 <div class="flex items-center gap-1.5">
-                  <span class="text-[11px] text-galvanised">Transfer In:</span>
+                  <span class="text-[11px] text-text-muted">Transfer In:</span>
                   <QuickNumberStepper
                     bind:value={category.transfers_in}
                     show_zero_button={false}
                   />
                 </div>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-[11px] text-galvanised">Transfer Out:</span>
+                  <span class="text-[11px] text-text-muted">Transfer Out:</span>
                   <QuickNumberStepper
                     bind:value={category.transfers_out}
                     show_zero_button={false}
                   />
                 </div>
                 <div class="flex items-center gap-1.5">
-                  <span class="text-[11px] text-galvanised">Home Kill:</span>
+                  <span class="text-[11px] text-text-muted">Home Kill:</span>
                   <QuickNumberStepper
                     bind:value={category.own_consumption}
                     show_zero_button={false}
@@ -532,9 +532,9 @@
     <!-- STEP 7: CLOSING PHYSICAL COUNT -->
     {:else if active_step.id === 'closing'}
       <div class="max-w-3xl mx-auto space-y-6">
-        <div class="p-4 rounded-xl bg-chalk border border-trough text-xs text-galvanised space-y-1">
-          <p class="font-semibold text-cast-iron flex items-center gap-1.5">
-            <ClipboardCheck class="w-4 h-4 text-ear-tag" />
+        <div class="p-4 rounded-xl bg-canvas border border-border text-xs text-text-muted space-y-1">
+          <p class="font-semibold text-primary flex items-center gap-1.5">
+            <ClipboardCheck class="w-4 h-4 text-accent" />
             Physical Stock Count on Farm
           </p>
           <p>
@@ -546,16 +546,16 @@
           <button
             type="button"
             onclick={match_actual_to_expected}
-            class="px-3 py-1.5 bg-chalk hover:bg-trough text-cast-iron border border-trough rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors shadow-2xs"
+            class="px-3 py-1.5 bg-canvas hover:bg-border text-primary border border-border rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors shadow-2xs"
             title="Sets actual counts equal to calculated closing numbers"
           >
-            <Sparkles class="w-3.5 h-3.5 text-ear-tag" />
+            <Sparkles class="w-3.5 h-3.5 text-accent" />
             <span>Set All to Expected Counts</span>
           </button>
         </div>
 
-        <div class="border border-trough rounded-xl overflow-hidden divide-y divide-trough">
-          <div class="grid grid-cols-12 bg-chalk px-4 py-2 font-bold text-xs uppercase font-display text-cast-iron">
+        <div class="border border-border rounded-xl overflow-hidden divide-y divide-border">
+          <div class="grid grid-cols-12 bg-canvas px-4 py-2 font-bold text-xs uppercase font-display text-primary">
             <span class="col-span-5">Category</span>
             <span class="col-span-3 text-right">Expected</span>
             <span class="col-span-4 text-right">Actual Count on Farm</span>
@@ -563,16 +563,16 @@
           {#each period.categories as category, idx}
             {@const expected = calculate_category_expected_closing(category)}
             {@const diff = calculate_category_discrepancy(category)}
-            <div class="grid grid-cols-12 items-center p-3 sm:px-4 hover:bg-chalk/40 transition-colors">
+            <div class="grid grid-cols-12 items-center p-3 sm:px-4 hover:bg-canvas/40 transition-colors">
               <div class="col-span-5">
-                <span class="text-xs font-semibold text-cast-iron">{category.name}</span>
+                <span class="text-xs font-semibold text-primary">{category.name}</span>
                 {#if diff !== 0}
-                  <span class="block text-[10px] text-cull-red font-semibold font-mono">
+                  <span class="block text-[10px] text-danger font-semibold font-mono">
                     Difference: {diff > 0 ? `+${diff}` : diff}
                   </span>
                 {/if}
               </div>
-              <div class="col-span-3 text-right font-mono text-xs font-semibold text-galvanised pr-4">
+              <div class="col-span-3 text-right font-mono text-xs font-semibold text-text-muted pr-4">
                 {expected}
               </div>
               <div class="col-span-4 flex justify-end" data-step="closing" data-idx={idx}>
@@ -589,29 +589,29 @@
     <!-- STEP 8: RECONCILIATION REVIEW -->
     {:else if active_step.id === 'review'}
       <div class="max-w-3xl mx-auto space-y-6">
-        <div class="p-5 rounded-xl border {summary.is_balanced ? 'bg-yard-green-light/40 border-yard-green-border' : 'bg-cull-red-light/40 border-cull-red-border'} text-cast-iron">
+        <div class="p-5 rounded-xl border {summary.is_balanced ? 'bg-success-light/40 border-success-border' : 'bg-danger-light/40 border-danger-border'} text-primary">
           <div class="flex items-start gap-3">
             {#if summary.is_balanced}
-              <div class="p-2 rounded-full bg-yard-green text-white shrink-0 shadow-xs">
+              <div class="p-2 rounded-full bg-success text-white shrink-0 shadow-xs">
                 <CheckCircle2 class="w-6 h-6" />
               </div>
               <div>
-                <h3 class="font-bold text-base text-cast-iron font-display uppercase tracking-wide">
+                <h3 class="font-bold text-base text-primary font-display uppercase tracking-wide">
                   Schedule Fully Balanced
                 </h3>
-                <p class="text-xs text-galvanised-dark mt-1">
+                <p class="text-xs text-text mt-1">
                   Your livestock movements balance perfectly with a zero discrepancy. All inflows match outflows plus the physical stock count.
                 </p>
               </div>
             {:else}
-              <div class="p-2 rounded-full bg-cull-red text-white shrink-0 shadow-xs">
+              <div class="p-2 rounded-full bg-danger text-white shrink-0 shadow-xs">
                 <AlertCircle class="w-6 h-6" />
               </div>
               <div>
-                <h3 class="font-bold text-base text-cull-red font-display uppercase tracking-wide">
+                <h3 class="font-bold text-base text-danger font-display uppercase tracking-wide">
                   Unresolved Discrepancy: {summary.discrepancy > 0 ? `+${summary.discrepancy}` : summary.discrepancy} Head
                 </h3>
-                <p class="text-xs text-galvanised-dark mt-1">
+                <p class="text-xs text-text mt-1">
                   Check your numbers: your total numbers in ({summary.total_inflows}) do not balance with your disposals ({summary.total_outflows}) plus closing count ({summary.actual_closing_stock}).
                 </p>
               </div>
@@ -621,36 +621,36 @@
 
         <!-- Metric highlights -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div class="p-3 bg-chalk rounded-lg border border-trough">
-            <span class="block text-[11px] font-semibold text-galvanised uppercase font-display">Total In</span>
-            <span class="text-xl font-bold font-mono text-cast-iron">{summary.total_inflows}</span>
+          <div class="p-3 bg-canvas rounded-lg border border-border">
+            <span class="block text-[11px] font-semibold text-text-muted uppercase font-display">Total In</span>
+            <span class="text-xl font-bold font-mono text-primary">{summary.total_inflows}</span>
           </div>
-          <div class="p-3 bg-chalk rounded-lg border border-trough">
-            <span class="block text-[11px] font-semibold text-galvanised uppercase font-display">Total Out</span>
-            <span class="text-xl font-bold font-mono text-cast-iron">{summary.total_outflows}</span>
+          <div class="p-3 bg-canvas rounded-lg border border-border">
+            <span class="block text-[11px] font-semibold text-text-muted uppercase font-display">Total Out</span>
+            <span class="text-xl font-bold font-mono text-primary">{summary.total_outflows}</span>
           </div>
-          <div class="p-3 bg-chalk rounded-lg border border-trough">
-            <span class="block text-[11px] font-semibold text-galvanised uppercase font-display">Closing Count</span>
-            <span class="text-xl font-bold font-mono text-cast-iron">{summary.actual_closing_stock}</span>
+          <div class="p-3 bg-canvas rounded-lg border border-border">
+            <span class="block text-[11px] font-semibold text-text-muted uppercase font-display">Closing Count</span>
+            <span class="text-xl font-bold font-mono text-primary">{summary.actual_closing_stock}</span>
           </div>
-          <div class="p-3 bg-chalk rounded-lg border border-trough">
-            <span class="block text-[11px] font-semibold text-galvanised uppercase font-display">Variance</span>
-            <span class="text-xl font-bold font-mono {summary.is_balanced ? 'text-yard-green' : 'text-cull-red'}">
+          <div class="p-3 bg-canvas rounded-lg border border-border">
+            <span class="block text-[11px] font-semibold text-text-muted uppercase font-display">Variance</span>
+            <span class="text-xl font-bold font-mono {summary.is_balanced ? 'text-success' : 'text-danger'}">
               {summary.discrepancy === 0 ? '0' : summary.discrepancy}
             </span>
           </div>
         </div>
 
         <!-- Next Actions -->
-        <div class="p-4 bg-white border border-trough rounded-xl flex items-center justify-between">
+        <div class="p-4 bg-white border border-border rounded-xl flex items-center justify-between">
           <div>
-            <h4 class="text-xs font-bold text-cast-iron font-display uppercase tracking-wider">Need to fine-tune or view all columns?</h4>
-            <p class="text-xs text-galvanised">You can jump to the accountant spreadsheet view at any time.</p>
+            <h4 class="text-xs font-bold text-primary font-display uppercase tracking-wider">Need to fine-tune or view all columns?</h4>
+            <p class="text-xs text-text-muted">You can jump to the accountant spreadsheet view at any time.</p>
           </div>
           <button
             type="button"
             onclick={on_switch_to_spreadsheet}
-            class="px-3.5 py-2 bg-cast-iron text-white rounded-lg text-xs font-semibold hover:bg-cast-iron/90 cursor-pointer shadow-2xs transition-colors"
+            class="px-3.5 py-2 bg-primary text-white rounded-lg text-xs font-semibold hover:bg-primary/90 cursor-pointer shadow-2xs transition-colors"
           >
             Open Spreadsheet View
           </button>
@@ -660,18 +660,18 @@
   </div>
 
   <!-- Wizard Footer Navigation Buttons -->
-  <div class="p-4 sm:px-6 bg-chalk border-t border-trough flex items-center justify-between">
+  <div class="p-4 sm:px-6 bg-canvas border-t border-border flex items-center justify-between">
     <button
       type="button"
       onclick={previous_step}
       disabled={current_step_index === 0}
-      class="px-3.5 py-2 rounded-lg border border-trough text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed bg-white hover:bg-trough text-cast-iron"
+      class="px-3.5 py-2 rounded-lg border border-border text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed bg-white hover:bg-border text-primary"
     >
       <ArrowLeft class="w-3.5 h-3.5" />
       <span>Back</span>
     </button>
 
-    <div class="text-xs font-medium text-galvanised hidden sm:block">
+    <div class="text-xs font-medium text-text-muted hidden sm:block">
       Step {current_step_index + 1} of {STEPS.length}
     </div>
 
@@ -679,7 +679,7 @@
       <button
         type="button"
         onclick={next_step}
-        class="px-4 py-2 rounded-lg bg-ear-tag hover:bg-ear-tag-hover text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+        class="px-4 py-2 rounded-lg bg-accent hover:bg-accent-hover text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
       >
         <span>Next Step</span>
         <ArrowRight class="w-3.5 h-3.5" />
@@ -688,7 +688,7 @@
       <button
         type="button"
         onclick={on_switch_to_spreadsheet}
-        class="px-4 py-2 rounded-lg bg-yard-green hover:bg-yard-green-dark text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+        class="px-4 py-2 rounded-lg bg-success hover:bg-success-hover text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
       >
         <Check class="w-3.5 h-3.5" />
         <span>Finished &mdash; View Spreadsheet</span>

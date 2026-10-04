@@ -82,21 +82,21 @@
       type="button"
       onclick={set_zero_and_advance}
       tabindex="-1"
-      class="px-2 py-1.5 rounded-lg border border-trough bg-white hover:bg-trough text-galvanised hover:text-cast-iron text-[11px] font-semibold transition-colors cursor-pointer active:scale-95 shadow-2xs"
+      class="px-2 py-1.5 rounded-lg border border-border bg-white hover:bg-border text-text-muted hover:text-primary text-[11px] font-semibold transition-colors cursor-pointer active:scale-95 shadow-2xs"
       title="Set to 0 and jump down"
     >
       0 / None
     </button>
   {/if}
 
-  <div class="inline-flex items-center rounded-lg border border-trough bg-white shadow-2xs overflow-hidden focus-within:ring-2 focus-within:ring-ear-tag focus-within:border-ear-tag">
+  <div class="inline-flex items-center rounded-lg border border-border bg-white shadow-2xs overflow-hidden focus-within:ring-2 focus-within:ring-accent focus-within:border-accent">
     <!-- Tactile Decrement Button -->
     <button
       type="button"
       onclick={decrement}
       disabled={Number(value || 0) <= min}
       tabindex="-1"
-      class="w-8 h-9 flex items-center justify-center bg-chalk hover:bg-trough text-cast-iron disabled:opacity-30 disabled:cursor-not-allowed border-r border-trough transition-colors cursor-pointer active:bg-trough-dark"
+      class="w-8 h-9 flex items-center justify-center bg-canvas hover:bg-border text-primary disabled:opacity-30 disabled:cursor-not-allowed border-r border-border transition-colors cursor-pointer active:bg-border-dark"
       title="Decrease by 1"
     >
       <Minus class="w-3.5 h-3.5" />
@@ -111,7 +111,7 @@
       onfocus={handle_focus}
       onkeydown={handle_keydown}
       oninput={handle_input}
-      class="w-20 text-center py-1.5 px-1 font-mono font-bold text-sm text-cast-iron bg-transparent border-0 focus:ring-0 focus:outline-hidden"
+      class="w-20 text-center py-1.5 px-1 font-mono font-bold text-sm text-primary bg-transparent border-0 focus:ring-0 focus:outline-hidden"
     />
 
     <!-- Tactile Increment Button -->
@@ -119,7 +119,7 @@
       type="button"
       onclick={increment}
       tabindex="-1"
-      class="w-8 h-9 flex items-center justify-center bg-chalk hover:bg-trough text-cast-iron border-l border-trough transition-colors cursor-pointer active:bg-trough-dark"
+      class="w-8 h-9 flex items-center justify-center bg-canvas hover:bg-border text-primary border-l border-border transition-colors cursor-pointer active:bg-border-dark"
       title="Increase by 1"
     >
       <Plus class="w-3.5 h-3.5" />
@@ -127,7 +127,7 @@
   </div>
 
   {#if unit_label}
-    <span class="text-xs text-galvanised font-medium hidden sm:inline ml-1">
+    <span class="text-xs text-text-muted font-medium hidden sm:inline ml-1">
       {unit_label}
     </span>
   {/if}
