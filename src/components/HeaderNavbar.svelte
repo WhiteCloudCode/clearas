@@ -15,6 +15,7 @@
     RotateCcw,
   } from '@lucide/svelte';
   import { BRAND } from '../config/brand';
+  import stocktaker_logo_url from '../assets/stocktaker-logo-no-bg.svg';
 
   interface Props {
     farm: FarmMetadata;
@@ -92,19 +93,12 @@
     <div class="flex items-center justify-between min-h-16 py-2 gap-3 flex-wrap sm:flex-nowrap">
       <!-- Brand & Farm Title -->
       <div class="flex items-center gap-4 min-w-0">
-        <div class="flex items-center gap-2">
-          <div class="w-9 h-9 rounded-lg bg-primary-dark border border-text-muted/40 flex items-center justify-center font-bold font-mono text-accent shadow-inner text-sm">
-            {BRAND.initials}
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="font-bold text-base tracking-wider uppercase text-white font-display">{BRAND.name}</span>
-              <span class="text-[10px] uppercase font-semibold bg-primary-light text-text-subtle px-1.5 py-0.5 rounded tracking-wide border border-text-muted/30 font-mono">
-                Livestock
-              </span>
-            </div>
-            <p class="text-xs text-text-subtle hidden sm:block">{BRAND.subtitle}</p>
-          </div>
+        <div class="flex items-center">
+          <img
+            src={stocktaker_logo_url}
+            alt={BRAND.name}
+            class="h-9 sm:h-10 w-auto object-contain shrink-0"
+          />
         </div>
 
         {#if active_view !== 'onboarding'}

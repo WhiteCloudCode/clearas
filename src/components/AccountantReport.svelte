@@ -474,6 +474,6 @@
   </div>
 
   <div class="mt-8 text-center text-[10px] text-text-muted font-mono">
-    Generated via {BRAND.name} &bull; {BRAND.tagline} &bull; Private On-Farm Records
+    Generated via <span class="font-display font-extrabold">{BRAND.name}</span> &bull; {BRAND.tagline} &bull; Private On-Farm Records
   </div>
 </div>

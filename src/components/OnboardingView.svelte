@@ -171,7 +171,11 @@
             </span>
           </div>
           <h1 class="text-2xl font-bold tracking-tight text-white font-display">
-            {step_title}
+            {#if current_step === 0}
+              Welcome to <span class="font-extrabold">{BRAND.name}</span>
+            {:else}
+              {step_title}
+            {/if}
           </h1>
         </div>
 
@@ -238,7 +242,7 @@
                 Simple, Private Livestock Reconciliation
               </h2>
               <p class="text-sm text-text leading-relaxed">
-                {BRAND.name} reconciles your herd numbers across HMRC categories without fragile spreadsheets or lost tally sheets. All records stay strictly private on your computer.
+                <span class="font-display font-extrabold">{BRAND.name}</span> reconciles your herd numbers across HMRC categories without fragile spreadsheets or lost tally sheets. All records stay strictly private on your computer.
               </p>
             </div>
           </div>

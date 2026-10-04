@@ -550,7 +550,7 @@
   <footer class="mt-auto border-t border-border/70 bg-surface/80 py-5 text-xs text-text no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-2 text-text-muted text-center sm:text-left">
-        <span class="font-display font-bold text-primary text-sm">{BRAND.name}</span>
+        <span class="font-display font-extrabold text-primary text-sm">{BRAND.name}</span>
         <span>•</span>
         <span>Free, zero-backend, privacy-first livestock reconciliation for British farming.</span>
       </div>
